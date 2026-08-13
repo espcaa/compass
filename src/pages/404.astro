@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/base.astro";
+import "../styles/404.css";
+import { Image } from "astro:assets";
+import sixSevenBusImage from "../assets/images/67.png";
+---
+
+<BaseLayout title="404" hideFooter={true}>
+    <div class="fourhundredoforcontainer">
+        <div class="notsixsevenjoketrust">
+            <Image
+                src={sixSevenBusImage}
+                class="dwaboutit"
+                alt="low quality smartphone picture of a bus operating on the 67 bus line in stockholm, with pride and swedish flags on the roof."
+            />
+        </div>
+        <h1>404</h1>
+        <p>did i lose this page,,,</p>
+        <a class="button" href="/"> go home </a>
+    </div>
+</BaseLayout>

@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/base.astro";
+
+const normal =
+    " !#$%&()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]abcdefghijklmnopqrstuvwxyz{} ¢£¥§©ª«¬®µ¶·º»ÂÇÈÉÊÌÒÔÙßàâåæçèéêëîïô÷øùûüœƒΔΩμπ‐–—‘’“†•…™Ω∂∆∙√∞∫≈≠≤≥⋲";
+
+import "../styles/test.css";
+---
+
+<BaseLayout title="test">
+    <div class="content">
+        <div class="header"></div>
+
+        <p class="glyph-run" style="font-size: 3rem; word-wrap: break-word;">
+            {normal}
+        </p>
+    </div>
+</BaseLayout>

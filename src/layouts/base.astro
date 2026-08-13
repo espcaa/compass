@@ -1,0 +1,22 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+const { title, hideFooter } = Astro.props;
+import "../styles/global.css";
+import { Font } from "astro:assets";
+---
+
+<html lang="en">
+    <head>
+        <Font cssVariable="--font-rail" preload />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <BaseHead title={title} />
+    </head>
+    <body>
+        <main class="content">
+            <slot />
+        </main>
+        {hideFooter ? "" : <Footer hidden={hideFooter} />}
+    </body>
+</html>

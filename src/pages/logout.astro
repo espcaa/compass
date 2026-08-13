@@ -1,0 +1,43 @@
+---
+import { RevokeToken } from "../utils/auth";
+import BaseLayout from "../layouts/base.astro";
+
+var error = "";
+var success = false;
+var what = false;
+
+if (Astro.cookies.has("hackrail_token")) {
+    var tokenValue = Astro.cookies.get("hackrail_token")?.value || "";
+    var tokenRevokeResponse = await RevokeToken(tokenValue);
+    if (!tokenRevokeResponse.ok) {
+        error = `Failed to revoke token: ${tokenRevokeResponse.error}`;
+    } else {
+        Astro.cookies.delete("hackrail_token", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "strict",
+        });
+        success = true;
+    }
+} else {
+    what = true;
+}
+---
+
+<BaseLayout>
+    <script is:inline define:vars={{ success }}>
+        if (success) {
+            window.location.href = "/";
+        }
+    </script>
+    <div class="margin">
+        {
+            what ? (
+                <h1>mmmh what are you doing here?</h1>
+            ) : (
+                <h1>Something went wrong oopsie...</h1>
+                <p>{error}</p>
+            )
+        }
+    </div>
+</BaseLayout>

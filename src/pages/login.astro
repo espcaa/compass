@@ -1,0 +1,46 @@
+---
+export const prerender = false;
+
+import BaseLayout from "../layouts/base.astro";
+import { ValidateToken } from "../utils/auth";
+
+var loggedIn: boolean = false;
+const clientId = import.meta.env.PUBLIC_CLIENT_ID;
+const redirectURI = import.meta.env.PUBLIC_REDIRECT_URI;
+const oauthUrl = `https://auth.hackclub.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&response_type=code&scope=email+name+slack_id+verification_status`;
+
+if (Astro.cookies.has("hackrail_token")) {
+    console.log("User is logged in, checking token validity...");
+    // user is logged in hmmmm
+    // we should check their token ig?
+    const token = Astro.cookies.get("hackrail_token");
+    const tokenValue = token?.value || "";
+    const verificationResponse = await ValidateToken(tokenValue);
+    if (!verificationResponse.ok) {
+        // token is invalid, redirect to oauth page
+        loggedIn = false;
+        console.log(
+            "Token is invalid, redirecting to oauth page... Error is " +
+                verificationResponse.error,
+        );
+    } else {
+        console.log("Token is valid, redirecting to dashboard...");
+        loggedIn = true;
+    }
+} else {
+    // user is not logged in, redirect to oauth page
+    loggedIn = false;
+}
+---
+
+<BaseLayout hideFooter={true}>
+    {
+        loggedIn ? (
+            <script is:inline>window.location.href = "/dashboard";</script>
+        ) : (
+            <script is:inline define:vars={{ oauthUrl }}>
+                window.location.href = oauthUrl;
+            </script>
+        )
+    }
+</BaseLayout>

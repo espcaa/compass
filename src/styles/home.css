@@ -1,0 +1,80 @@
+.title {
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 0;
+    margin-bottom: 10px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    margin: 5rem;
+}
+
+.subtitle {
+    font-size: 1.3rem;
+    margin-top: 0.7rem;
+    text-decoration: wavy underline var(--green);
+}
+
+.icon {
+    color: var(--fg);
+
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: -0.9rem;
+    margin-left: -4px;
+}
+
+.exp-container {
+    flex: 1 1 0%;
+    min-width: 0;
+    display: flex;
+}
+
+.map-fade {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        /* corner anchor — pulls focus to bottom-left */
+        radial-gradient(
+            120% 120% at 0% 100%,
+            var(--bg) 0%,
+            color-mix(in oklab, var(--bg), transparent 100%) 55%
+        ),
+        /* bottom lift */
+        linear-gradient(
+                to top,
+                var(--bg) 0%,
+                color-mix(in oklab, var(--bg), transparent 60%) 25%,
+                transparent 65%
+            ),
+        /* right edge */
+        linear-gradient(
+                to left,
+                transparent 55%,
+                color-mix(in oklab, var(--bg), transparent 40%) 85%,
+                var(--bg) 100%
+            );
+}
+
+.card {
+    background-color: var(--green-dim);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.spacer {
+    flex: 0.2 1 0%;
+    min-width: 0;
+}
