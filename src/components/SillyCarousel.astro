@@ -1,0 +1,43 @@
+---
+import "./silycarousel.css";
+import { Image } from "astro:assets";
+
+export type Card = {
+    image: ImageMetadata;
+    alt: string;
+    title: string;
+};
+interface Props {
+    cards: Card[];
+}
+
+const { cards } = Astro.props;
+const count = cards.length;
+const copies = 4;
+const cardWidth = 316;
+const duration = `${Math.max(count * 2, 12)}s`;
+const distance = `${-(count * cardWidth)}px`;
+const repeated = Array.from({ length: copies }, () => cards).flat();
+---
+
+<div class="carousel">
+    <div
+        class="track"
+        style={`--marquee-duration: ${duration}; --marquee-distance: ${distance}`}
+    >
+        {
+            repeated.map((slide, i) => (
+                <div class="slide" aria-hidden={i >= count}>
+                    <Image
+                        src={slide.image}
+                        alt={slide.alt}
+                        class="slide-image"
+                    />
+                    <div class="slide-content">
+                        <h2 class="slide-title">{slide.title}</h2>
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</div>

@@ -1,7 +1,7 @@
 import { db } from "../db/index";
 import { users } from "../db/schema";
 import { type Result, type UserProfile } from "../shared/types";
-import { GenerateToken } from "./auth";
+import { GenerateToken, GetUserProfileBySlackId } from "./auth";
 
 // Login takes a hackclub oauth code & returns a hackrail token
 async function Login(code: string): Promise<Result<string>> {
@@ -56,20 +56,26 @@ async function Login(code: string): Promise<Result<string>> {
     }
 
     const profileData = await profileResponse.json();
-    const profile: UserProfile = {
-      slackid: profileData.identity.slack_id,
-      name: profileData.identity.first_name,
-      email: profileData.identity.primary_email,
-      avatar:
-        "https://cachet.dunkirk.sh/users/" +
-        profileData.identity.slack_id +
-        "/r",
-    };
 
-    // now we can use the profile to get a hackrail token
-    await upsertUser(profile);
+    // check if the user alr exists
+    const dbUserProfile = await GetUserProfileBySlackId(profileData.slack_id);
+    if (!dbUserProfile.ok) {
+      // the user doesn't have a profile yet
+      const profile: UserProfile = {
+        slackid: profileData.identity.slack_id,
+        name: profileData.identity.first_name,
+        email: profileData.identity.primary_email,
+        avatar:
+          "https://cachet.dunkirk.sh/users/" +
+          profileData.identity.slack_id +
+          "/r",
+      };
 
-    const hackrailtoken = await GenerateToken(profile.slackid);
+      // now we can use the profile to get a hackrail token
+      await upsertUser(profile);
+    }
+
+    const hackrailtoken = await GenerateToken(profileData.identity.slack_id);
 
     return { ok: true, value: hackrailtoken };
   } catch (error) {

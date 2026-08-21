@@ -39,24 +39,14 @@ export async function ValidateToken(
   }
 
   // find the user
-  const userRow = db
-    .select()
-    .from(users)
-    .where(eq(users.slackId, row.slackId))
-    .get();
 
-  if (!userRow) {
-    return { ok: false, error: new Error("user not found") };
+  const userProfile = await GetUserProfileBySlackId(row.slackId);
+
+  if (!userProfile.ok) {
+    return { ok: false, error: new Error("invalid user") };
   }
 
-  const userProfile: UserProfile = {
-    slackid: userRow.slackId,
-    name: userRow.name,
-    email: userRow.email,
-    avatar: userRow.avatar,
-  };
-
-  return { ok: true, value: userProfile };
+  return { ok: true, value: userProfile.value };
 }
 
 export async function RevokeToken(token: string): Promise<Result<void>> {
@@ -75,4 +65,30 @@ export async function RevokeToken(token: string): Promise<Result<void>> {
   await db.delete(tokens).where(eq(tokens.token, hashedToken));
 
   return { ok: true, value: undefined };
+}
+
+export async function GetUserProfileBySlackId(
+  slackId: string,
+): Promise<Result<UserProfile>> {
+  const userRow = db
+    .select()
+    .from(users)
+    .where(eq(users.slackId, slackId))
+    .get();
+
+  if (!userRow) {
+    return { ok: false, error: new Error("user not found") };
+  }
+
+  const userProfile: UserProfile = {
+    slackid: userRow.slackId,
+    name: userRow.name,
+    email: userRow.email,
+    avatar: userRow.avatar,
+  };
+
+  return {
+    ok: true,
+    value: userProfile,
+  };
 }

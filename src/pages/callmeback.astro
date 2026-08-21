@@ -1,8 +1,6 @@
 ---
 export const prerender = false;
 
-import BaseLayout from "../layouts/base.astro";
-import Spinner from "../components/Spinner.astro";
 import "../styles/callmeback.css";
 import { Login } from "../utils/hackclub";
 
@@ -10,14 +8,16 @@ import { Login } from "../utils/hackclub";
 const code = Astro.url.searchParams.get("code");
 
 if (!code) {
-    throw new Error("No `code` query parameter present on the callback URL.");
+    return Astro.redirect(`/error?code=missing_code`);
 }
 // do auth (magic)
-var loginResult = await Login(code);
+const loginResult = await Login(code);
 if (!loginResult.ok) {
     // something went wrong ono
     // redirect to error page with error message
-    throw new Error(`${loginResult.error}. code was ${code}`);
+    return Astro.redirect(
+        `/error?code=auth_failed&message=${loginResult.error.message}`,
+    );
 } else {
     // save the token to cookies :3
     Astro.cookies.set("hackrail_token", loginResult.value, {
@@ -26,12 +26,6 @@ if (!loginResult.ok) {
         sameSite: "strict",
         maxAge: 60 * 60 * 24 * 7, // 1 week ig?
     });
+    return Astro.redirect("/dashboard");
 }
 ---
-
-<BaseLayout title="loading..." hideFooter={true}>
-    <div class="callmeback-container">
-        <Spinner class="spinner" size={50} />
-        <p>Logging you in...</p>
-    </div>
-</BaseLayout>

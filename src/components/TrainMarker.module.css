@@ -1,0 +1,52 @@
+.train-icon {
+    width: 12px;
+    height: 12px;
+    background-color: var(--green-bright);
+    border: 1px solid var(--bg-inset);
+    border-radius: 50%;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.train-marker {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 4px 4px;
+    cursor: pointer;
+}
+
+.train-info {
+    z-index: 1000;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    border-radius: 6px;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 10px;
+    background-color: var(--bg-inset);
+    white-space: nowrap;
+    z-index: 10;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.train-marker:hover .train-info {
+    opacity: 1;
+}
+
+.train-number {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--bg);
+
+    background-color: var(--green);
+    border-radius: 4px;
+    padding: 6px 6px;
+    align-self: flex-start;
+}

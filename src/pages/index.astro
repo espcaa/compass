@@ -1,13 +1,75 @@
 ---
 import BaseLayout from "../layouts/base.astro";
 import "../styles/home.css";
+import { type Card } from "../components/SillyCarousel.astro";
+import { Image } from "astro:assets";
 
 import cableCarRaw from "../assets/images/cable_car.svg?raw";
+
+// images
+import prahaCentralImage from "../assets/images/praha_central.jpg";
+import SjInsideImage from "../assets/images/sj_inside.jpg";
+import trainDoorImage from "../assets/images/train_door.jpg";
+import trainOutsideImage from "../assets/images/train_outside.jpg";
+import highSpeedTrainImage from "../assets/images/high_speed_train.jpg";
+import stockholmImage from "../assets/images/stockholm.jpg";
+
+// train logos
+import sjLogo from "../assets/images/logos/sj.svg";
+import sncfLogo from "../assets/images/logos/sncf.svg";
+import sbbLogo from "../assets/images/logos/sbb.svg";
+import dbLogo from "../assets/images/logos/db.svg";
+import interrailLogo from "../assets/images/logos/interrail.svg";
+
 import Map from "../components/Map.tsx";
+import SillyCarousel from "../components/SillyCarousel.astro";
+
+// arrowwwws
+import Arrow from "../assets/images/cutearrow.png";
+import ArrowTwo from "../assets/images/arrow2.png";
+import DownArrow from "../assets/images/downarrow.png"
+
+const cards: Card[] = [
+    {
+        title: "see very cool trains!",
+        image: prahaCentralImage,
+        alt: "sorry no alt",
+    },
+    {
+        title: "go meet other hackclubbers!",
+        image: SjInsideImage,
+        alt: "sorry no alt",
+    },
+    {
+        title: "take iconic rides",
+        image: trainDoorImage,
+        alt: "sorry no alt",
+    },
+    {
+        title: "get on a crazy journey!",
+        image: trainOutsideImage,
+        alt: "sorry no alt",
+    },
+    {
+        title: "try high speed trains!",
+        image: highSpeedTrainImage,
+        alt: "sorry no alt",
+    },
+    {
+        title: "go to cities you always dreamt of :O",
+        image: stockholmImage,
+        alt: "sorry no alt",
+    },
+];
 ---
 
-<BaseLayout title="Home">
+<BaseLayout title="hackrail">
     <main>
+        <div class="deadline-container">
+            <div class="deadline">
+                <p class="deadline-p">Until 07/09/26</p>
+            </div>
+        </div>
         <div class="header">
             <div class="title-container">
                 <span class="icon" set:html={cableCarRaw} />
@@ -17,8 +79,121 @@ import Map from "../components/Map.tsx";
                     <span class="button-text">Get Started now!</span>
                 </a>
             </div>
-            <div class="spacer"></div>
+            <div class="spacer">
+                <div class="mapdesc-cont">
+                    <div class="mapdesc">
+                        <p class="mapdesc-text">
+                            This is a live map of trains in finland! Hover a
+                            train to see its real number!
+                        </p>
+                        <Image
+                            src={Arrow}
+                            class="arrow"
+                            alt="arrow showing the map"
+                        />
+                    </div>
+                </div>
+            </div>
             <div class="exp-container"><Map client:load /></div>
+        </div>
+        <SillyCarousel cards={cards} />
+        <div class="expl-container">
+            <div class="expl">
+                <h2 class="expl-title">what is hackrail?</h2>
+                <div class="cards">
+                    <div class="row">
+                        <div class="first-card expl-card">
+                            <h3 class="exp-title">
+                                ship projects that use <em class="italic">
+                                    open source train data</em
+                                >
+                            </h3>
+                            <div class="sncf-logo logo-container">
+                                <Image
+                                    src={sncfLogo}
+                                    class="logo"
+                                    alt="sncf logo"
+                                />
+                            </div>
+                            <div class="sbb-logo logo-container">
+                                <Image
+                                    src={sbbLogo}
+                                    class="logo"
+                                    alt="sbb logo"
+                                />
+                            </div>
+                            <div class="sj-logo logo-container">
+                                <Image
+                                    src={sjLogo}
+                                    class="logo"
+                                    alt="sj logo"
+                                />
+                            </div>
+                            <div class="db-logo logo-container">
+                                <Image
+                                    src={dbLogo}
+                                    class="logo"
+                                    alt="db logo"
+                                />
+                            </div>
+                        </div>
+                        <div class="expl-arrow-container">
+                            <Image
+                                src={ArrowTwo}
+                                class="expl-arrow"
+                                alt="arrow showing the second card"
+                            />
+                        </div>
+                    </div>
+                    <div class="mobilearrow-container">
+                        <Image
+                            src={DownArrow}
+                            class="mobilearrow"
+                            alt="arrow going down"
+                        />
+                    </div>
+                    <div class="expl-end">
+                        <div class="second-card expl-card">
+                            <h3 class="exp-title">
+                                get money for train tickets & train passes
+                            </h3>
+                            <div class="interrail-logo logo-container">
+                                <Image
+                                    src={interrailLogo}
+                                    class="logo"
+                                    alt="interrail logo"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ideas">
+                <h2 class="ideas-title">what can you do?</h2>
+                <div class="ideas-cards">
+                    <div class="idea-card">
+                        <h3 class="idea-title">train tracker</h3>
+                        <p class="idea-desc">
+                            build a train tracker that shows the current
+                            location of trains in finland!
+                        </p>
+                    </div>
+                    <div class="idea-card">
+                        <h3 class="idea-title">train pass app</h3>
+                        <p class="idea-desc">
+                            build an app that shows the best train pass for your
+                            needs!
+                        </p>
+                    </div>
+                    <div class="idea-card">
+                        <h3 class="idea-title">train ticket bot</h3>
+                        <p class="idea-desc">
+                            build a bot that finds the best train tickets for
+                            your needs!
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </BaseLayout>

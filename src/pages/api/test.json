@@ -1,0 +1,687 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [27.694955, 64.211556] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 84,
+        "trainNumber": 73,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:02.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [23.009247, 63.019627] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 134,
+        "trainNumber": 265,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:06.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [22.927878, 62.717549] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 125,
+        "trainNumber": 266,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [23.376859, 61.761928] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 144,
+        "trainNumber": 269,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:03.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [23.93023, 61.159821] },
+      "properties": {
+        "accuracy": 6,
+        "speed": 136,
+        "trainNumber": 273,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:03.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.439201, 64.024245] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 121,
+        "trainNumber": 274,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:03.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [26.954541, 60.879343] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 63,
+        "trainNumber": 2034,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:03.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [26.948923, 60.568073] },
+      "properties": {
+        "accuracy": 8,
+        "speed": 71,
+        "trainNumber": 2210,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:04.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [26.813628, 60.753823] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 59,
+        "trainNumber": 2654,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [28.847765, 61.232626] },
+      "properties": {
+        "accuracy": 16,
+        "speed": 78,
+        "trainNumber": 2750,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:04.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [29.520329, 61.537768] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 81,
+        "trainNumber": 2764,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:02.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.64889, 60.976627] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 57,
+        "trainNumber": 2854,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [22.935441, 62.684349] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 73,
+        "trainNumber": 3069,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:03.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.86707, 61.77191] },
+      "properties": {
+        "accuracy": 2,
+        "speed": 61,
+        "trainNumber": 3426,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.000545, 61.50646] },
+      "properties": {
+        "accuracy": 6,
+        "speed": 75,
+        "trainNumber": 3493,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:04.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.733826, 61.733842] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 82,
+        "trainNumber": 3496,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:04.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [27.052475, 62.282781] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 0,
+        "trainNumber": 3503,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:03.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.104841, 60.832098] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 79,
+        "trainNumber": 3636,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [23.070052, 60.854654] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 79,
+        "trainNumber": 4036,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.913942, 63.954405] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 80,
+        "trainNumber": 4059,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [27.403438, 63.848096] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 55,
+        "trainNumber": 4139,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:04.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [27.487917, 63.243483] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 79,
+        "trainNumber": 4224,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:04.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [27.623419, 62.877165] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 81,
+        "trainNumber": 4771,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [27.515504, 60.918119] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 49,
+        "trainNumber": 4778,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [27.24981, 60.906116] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 79,
+        "trainNumber": 4789,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.633979, 64.680545] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 75,
+        "trainNumber": 5002,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:04.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [27.419961, 63.862489] },
+      "properties": {
+        "accuracy": 6,
+        "speed": 0,
+        "trainNumber": 5020,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:04.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [27.169521, 62.312435] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 0,
+        "trainNumber": 5036,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:22:01.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.483358, 63.742443] },
+      "properties": {
+        "accuracy": 5,
+        "speed": 75,
+        "trainNumber": 5286,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:02.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.511568, 64.955567] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 69,
+        "trainNumber": 5403,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [23.14738, 63.834271] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 27,
+        "trainNumber": 5423,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:22:37.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [26.686006, 60.864269] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 26,
+        "trainNumber": 7154,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:02.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.940943, 60.171804] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 0,
+        "trainNumber": 8552,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:02.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.635891, 60.201251] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 50,
+        "trainNumber": 8554,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:23:53.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.436646, 60.119741] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 28,
+        "trainNumber": 8555,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:22:14.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.436356, 60.119772] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 5,
+        "trainNumber": 8556,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:04.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.769284, 60.217162] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 79,
+        "trainNumber": 8557,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:04.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.941704, 60.171744] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 0,
+        "trainNumber": 8761,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:22:47.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.895901, 60.309644] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 116,
+        "trainNumber": 8765,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.927445, 60.204342] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 56,
+        "trainNumber": 8769,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:06.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.941543, 60.171724] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 0,
+        "trainNumber": 9382,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:10:58.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.028983, 60.262726] },
+      "properties": {
+        "accuracy": 2,
+        "speed": 8,
+        "trainNumber": 9384,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:06.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.096172, 60.376288] },
+      "properties": {
+        "accuracy": 2,
+        "speed": 72,
+        "trainNumber": 9385,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.933835, 60.192828] },
+      "properties": {
+        "accuracy": 2,
+        "speed": 60,
+        "trainNumber": 9387,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:04.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.096158, 60.469728] },
+      "properties": {
+        "accuracy": 2,
+        "speed": 76,
+        "trainNumber": 9736,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.554267, 60.954597] },
+      "properties": {
+        "accuracy": 2,
+        "speed": 119,
+        "trainNumber": 9742,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:02.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.933804, 60.57562] },
+      "properties": {
+        "accuracy": 2,
+        "speed": 124,
+        "trainNumber": 9743,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.933162, 60.199231] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 15,
+        "trainNumber": 9880,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:03.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.826444, 60.946567] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 0,
+        "trainNumber": 9881,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:04.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.026586, 60.261101] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 79,
+        "trainNumber": 9885,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:04.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.460011, 61.011949] },
+      "properties": {
+        "accuracy": 2,
+        "speed": 79,
+        "trainNumber": 11059,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.4785, 61.002828] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 0,
+        "trainNumber": 11366,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:14:03.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [26.718076, 60.866549] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 0,
+        "trainNumber": 22032,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:03.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [28.257746, 61.065148] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 45,
+        "trainNumber": 52337,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:03.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [22.428669, 61.262806] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 78,
+        "trainNumber": 53702,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:02.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.405041, 61.658724] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 85,
+        "trainNumber": 54038,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [27.061012, 62.282553] },
+      "properties": {
+        "accuracy": 3,
+        "speed": 33,
+        "trainNumber": 54342,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.021349, 60.78986] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 69,
+        "trainNumber": 55585,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [27.537967, 64.405417] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 58,
+        "trainNumber": 55631,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:24:02.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [28.394382, 61.100065] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 40,
+        "trainNumber": 56772,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:03.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [25.508011, 64.959346] },
+      "properties": {
+        "accuracy": 4,
+        "speed": 0,
+        "trainNumber": 58622,
+        "departureDate": "2026-08-14",
+        "timestamp": "2026-08-14T22:24:05.000Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [24.921449, 60.212691] },
+      "properties": {
+        "accuracy": 2,
+        "speed": 19,
+        "trainNumber": 64401,
+        "departureDate": "2026-08-15",
+        "timestamp": "2026-08-14T22:10:27.000Z"
+      }
+    }
+  ]
+}

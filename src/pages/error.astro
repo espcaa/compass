@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/base.astro";
+import "../styles/error.css";
+import { Image } from "astro:assets";
+
+// images a?
+import bonkIamge from "../assets/images/bonk.png";
+
+// get the code from url params
+const code = Astro.url.searchParams.get("code") || "none";
+var additionalInfo: string = "";
+
+switch (code) {
+    case "auth_failed":
+        additionalInfo =
+            "looks like auth failed, my system was supposed to be flawless :<";
+        break;
+    case "missing_code":
+        additionalInfo =
+            "i think hackclub identity forgot to give us an authentication code? or maybe you're just messing with me :sob:";
+        break;
+    default:
+        additionalInfo = "i don't know more about this error than you :sob:";
+        break;
+}
+---
+
+<BaseLayout title="error uhm" hideFooter={true}>
+    <div class="errorcontainer">
+        <Image src={bonkIamge} class="bonkimage" alt="bonk" />
+        <h1>I think something went wrong...</h1>
+        <p>error code: {code}</p>
+        <p class="explanation">{additionalInfo}</p>
+        <a class="button" href="/"> go home </a>
+    </div>
+</BaseLayout>
