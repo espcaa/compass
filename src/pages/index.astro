@@ -27,7 +27,7 @@ import SillyCarousel from "../components/SillyCarousel.astro";
 // arrowwwws
 import Arrow from "../assets/images/cutearrow.png";
 import ArrowTwo from "../assets/images/arrow2.png";
-import DownArrow from "../assets/images/downarrow.png"
+import DownArrow from "../assets/images/downarrow.png";
 
 const cards: Card[] = [
     {
@@ -96,7 +96,7 @@ const cards: Card[] = [
             </div>
             <div class="exp-container"><Map client:load /></div>
         </div>
-        <SillyCarousel cards={cards} />
+        <SillyCarousel direction="right" cards={cards} />
         <div class="expl-container">
             <div class="expl">
                 <h2 class="expl-title">what is hackrail?</h2>
@@ -195,5 +195,71 @@ const cards: Card[] = [
                 </div>
             </div>
         </div>
-    </main>
-</BaseLayout>
+        <div class="faq-container">
+            <div class="faq">
+                <h2 class="faq-title">
+                    FAQ<em id="time">00:00:00</em>
+                    <div class="faq-questions">
+                        <details class="faq-question">
+                            <summary class="faq-question-title">
+                                when is this happening?
+                            </summary>
+                            <p class="faq-question-desc">
+                                hackrail runs until the 7th of september 2026!
+                                you can submit any projects you make(or have
+                                made) until then!
+                            </p>
+                        </details>
+                        <details class="faq-question">
+                            <summary class="faq-question-title">
+                                what is hackclub?
+                            </summary>
+                            <p class="faq-question-desc">
+                                Hack Club is a 501(c)(3) nonprofit, dedicated to
+                                getting teenagers into the world of tech! Hack
+                                Club runs events like this all the time, for
+                                teenagers, by teenagers!
+                            </p>
+                        </details>
+                        <details class="faq-question">
+                            <summary class="faq-question-title">
+                                who can participate?
+                            </summary>
+                            <p class="faq-question-desc">
+                                anyone aged 13-18 (18 included) can join! its
+                                totally free and you get cool stuff!
+                            </p>
+                        </details>
+                        <details class="faq-question">
+                            <summary class="faq-question-title">
+                                what is interrail
+                            </summary>
+                            <p class="faq-question-desc">
+                                interrail is a kind of train pass that allows
+                                you to take any train in europe for free (most
+                                of the time).
+                            </p>
+                        </details>
+                        <details class="faq-question">
+                            <summary class="faq-question-title">
+                                can i only participate if i'm in europe?
+                            </summary>
+                            <p class="faq-question-desc">/</p>
+                        </details>
+                    </div>
+                </h2>
+            </div>
+        </div>
+        <script type="text/javascript">
+            // update the time in the faq title with the current time every second
+            setInterval(() => {
+                const timeElement = document.getElementById("time");
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, "0");
+                const minutes = now.getMinutes().toString().padStart(2, "0");
+                const seconds = now.getSeconds().toString().padStart(2, "0");
+                timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+            }, 1000);
+        </script>
+    </main></BaseLayout
+>

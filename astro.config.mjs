@@ -25,6 +25,19 @@ export default defineConfig({
         ],
       },
     },
+    {
+      provider: fontProviders.local(),
+      name: "Dot",
+      cssVariable: "--font-dot",
+      options: {
+        variants: [
+          {
+            weight: "400",
+            src: ["./src/assets/fonts/dot.woff"],
+          },
+        ],
+      },
+    },
   ],
 
   integrations: [react()],

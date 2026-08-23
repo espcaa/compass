@@ -2,6 +2,8 @@
 import "./silycarousel.css";
 import { Image } from "astro:assets";
 
+type Direction = "up" | "right";
+
 export type Card = {
     image: ImageMetadata;
     alt: string;
@@ -9,21 +11,25 @@ export type Card = {
 };
 interface Props {
     cards: Card[];
+    direction: Direction;
 }
 
-const { cards } = Astro.props;
+const { cards, direction } = Astro.props;
 const count = cards.length;
 const copies = 4;
 const cardWidth = 316;
+const cardHeight = 266.4;
 const duration = `${Math.max(count * 2, 12)}s`;
 const distance = `${-(count * cardWidth)}px`;
 const repeated = Array.from({ length: copies }, () => cards).flat();
 ---
 
-<div class="carousel">
+<div class="carousel" data-direction={direction}>
     <div
         class="track"
-        style={`--marquee-duration: ${duration}; --marquee-distance: ${distance}`}
+        style={direction === "up"
+            ? `--distanceX: 0px; --distanceY: ${distance}; --duration: ${duration};`
+            : `--distanceX: ${distance}; --distanceY: 0px; --duration: ${duration};`}
     >
         {
             repeated.map((slide, i) => (

@@ -14,6 +14,12 @@
     flex-wrap: wrap;
 }
 
+#time {
+    font-style: normal;
+    font-size: 3rem;
+    margin-left: 1rem;
+}
+
 .title-container {
     display: flex;
     flex-direction: column;
@@ -199,6 +205,39 @@ h2 {
     height: 5rem;
 }
 
+summary,
+details {
+    list-style: none;
+}
+
+.faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 5rem;
+    background-color: black;
+    border-radius: 1rem;
+    font-family: var(--font-dot), sans-serif;
+    color: var(--warn);
+}
+
+.faq {
+    padding: 1rem;
+}
+
+.faq-question-desc {
+    font-size: 1.5rem;
+    color: white;
+    margin: 0;
+    padding: 0.5rem 0;
+}
+
+summary {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
 .italic {
     font-weight: 400;
     font-style: italic;
@@ -276,6 +315,24 @@ h2 {
 
 .second-card {
     position: relative;
+}
+
+.faq-title {
+    font-family: var(--font-dot), sans-serif;
+    font-size: 4rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+.faq-question {
+    border-top: 1px solid var(--warn);
+}
+
+.faq-question-title {
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 0.5rem 0;
+    font-weight: bold;
 }
 
 .interrail-logo {
@@ -371,5 +428,9 @@ h2 {
 
     h2 {
         margin: 0;
+    }
+
+    .faq-container {
+        margin: 2rem;
     }
 }

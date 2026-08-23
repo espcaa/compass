@@ -1,10 +1,18 @@
 ---
 import "./footer.css";
+import { Image } from "astro:assets";
+import trainSvg from "../assets/images/train.svg";
 ---
 
-<div class="footer">
-    <a href="https://hackclub.com/privacy-and-terms">Privacy policy</a>
-    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        >please don't hack me</a
-    >
+<div>
+    <Image
+        src={trainSvg}
+        alt="train"
+        class="footer-train"
+        style="height: 50px; width: auto; margin: 0;"
+    />
+    <div class="footer">
+        <a href="https://hackclub.com/privacy-and-terms">Privacy policy</a>
+        <a href="https://forms.hackclub.com/bounty">Fullfilment bounty</a>
+    </div>
 </div>

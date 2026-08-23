@@ -3,10 +3,16 @@
     overflow-x: clip;
     overflow-y: visible;
 }
+
+.carousel[data-direction="up"] {
+    overflow-x: visible;
+    overflow-y: clip;
+}
+
 .track {
     display: flex;
     width: max-content;
-    animation: marquee var(--marquee-duration, 20s) linear infinite;
+    animation: scroll var(--duration, 20s) linear infinite;
     will-change: transform;
 }
 .slide {
@@ -42,9 +48,12 @@
         color 0.3s ease;
 }
 
-@keyframes marquee {
+@keyframes scroll {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
     to {
-        transform: translateX(var(--marquee-distance, -25%));
+        transform: translate3d(var(--distanceX), var(--distanceY), 0);
     }
 }
 
@@ -63,4 +72,14 @@
 .slide:hover .slide-title {
     background-color: var(--green);
     color: var(--bg);
+}
+
+.carousel[data-direction="right"] .track {
+    flex-direction: row;
+    width: max-content;
+}
+
+.carousel[data-direction="up"] .track {
+    flex-direction: column;
+    height: max-content;
 }
