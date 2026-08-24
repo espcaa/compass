@@ -7,6 +7,7 @@ import { Image } from "astro:assets";
 import cableCarRaw from "../assets/images/cable_car.svg?raw";
 
 // images
+import signImage from "../assets/images/railwaysign.png";
 import prahaCentralImage from "../assets/images/praha_central.jpg";
 import SjInsideImage from "../assets/images/sj_inside.jpg";
 import trainDoorImage from "../assets/images/train_door.jpg";
@@ -83,13 +84,6 @@ const projectCards: Card[] = [
             "make a better train booking engine for trains in your home country!",
     },
     {
-        title: "hardware project",
-        image: hardwareImage,
-        alt: "picture of a custom train departure display",
-        description:
-            "make a custom train departure display for your own bedroom!",
-    },
-    {
         title: "interrail pass recap",
         image: interrailImage,
         alt: "picture of a train pass",
@@ -97,7 +91,7 @@ const projectCards: Card[] = [
             'make a website that generates a "wrapped" of your interrail journey!',
     },
     {
-        title: "your project!",
+        title: "anything else!",
         image: yourProjectImage,
         alt: "no alt",
         description: "make your own project! the possibilities are endless!",
@@ -210,15 +204,25 @@ const projectCards: Card[] = [
                     </div>
                 </div>
             </div>
+            <div class="sign">
+                <Image src={signImage} class="sign-image" alt="railway sign" />
+            </div>
             <div class="ideas">
                 <h2 class="ideas-title">what can you make?</h2>
                 <div class="ideas-carousel">
-                    <SillyCarousel
-                        ideas={true}
-                        direction="up"
-                        cards={projectCards}
-                    />
-                    <div class="ideas-fade"></div>
+                    {
+                        projectCards.map((card) => (
+                            <div class="idea-card">
+                                <Image
+                                    src={card.image}
+                                    alt={card.alt}
+                                    class="idea-card-image"
+                                />
+                                <h3 class="idea-card-title">{card.title}</h3>
+                                <p class="idea-card-desc">{card.description}</p>
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
         </div>

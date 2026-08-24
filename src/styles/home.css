@@ -1,7 +1,6 @@
 .title {
     font-size: 6rem;
     font-weight: 700;
-    margin-bottom: 10px;
     margin: 0;
     line-height: 1.2;
 }
@@ -53,37 +52,27 @@
     inset: 0;
     pointer-events: none;
     background:
-        /* corner anchor — pulls focus to bottom-left */
         radial-gradient(
             120% 120% at 0% 100%,
             var(--bg) 0%,
             color-mix(in oklab, var(--bg), transparent 100%) 55%
         ),
-        /* bottom lift */
         linear-gradient(
-                to top,
-                var(--bg) 0%,
-                color-mix(in oklab, var(--bg), transparent 60%) 25%,
-                transparent 65%
-            ),
-        /* right edge */
+            to top,
+            var(--bg) 0%,
+            color-mix(in oklab, var(--bg), transparent 60%) 25%,
+            transparent 65%
+        ),
         linear-gradient(
-                to left,
-                transparent 55%,
-                color-mix(in oklab, var(--bg), transparent 40%) 85%,
-                var(--bg) 100%
-            );
+            to left,
+            transparent 55%,
+            color-mix(in oklab, var(--bg), transparent 40%) 85%,
+            var(--bg) 100%
+        );
 }
 
 .mobilearrow {
     display: none;
-}
-
-.card {
-    position: relative;
-    background-color: var(--green-dim);
-    padding: 1rem;
-    border-radius: 0.5rem;
 }
 
 .spacer {
@@ -116,31 +105,13 @@
     font-size: 1.2rem;
     line-height: 1.2;
     text-align: center;
-    color: var(--fg-dim);
-}
-
-.refresh {
-    color: var(--green);
-    font-weight: bold;
-    word-break: keep-all;
-    font-size: 1rem;
-    width: fit-content;
-    position: absolute;
-    top: -3rem;
-    left: 50%;
-    min-width: 1000px;
+    color: var(--fg-muted);
 }
 
 .expl-container {
-    gap: clamp(1rem, 20vw, 10rem);
     margin: 5rem;
     display: flex;
     flex-direction: row;
-}
-
-.expl-spacer {
-    /* take half of the space */
-    flex: 1 1 0%;
 }
 
 .expl {
@@ -149,28 +120,11 @@
     margin-bottom: 5rem;
 }
 
-.expl-card {
-    background-color: var(--green);
-    transition: transform 0.2s ease;
-    color: var(--bg);
-    padding: 1rem;
-    max-width: 200px;
-    border-radius: 1rem;
-    transition: transform 0.1s ease;
-}
-
-.exp-title {
-    font-size: 1.5rem;
-    margin: 0;
-    padding: 0;
-    font-weight: bold;
-}
-
 .cards {
     display: flex;
-    margin: 2rem;
+    margin: 2rem 0 0;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0rem;
 }
 
 h2 {
@@ -178,35 +132,25 @@ h2 {
     font-size: 3rem;
 }
 
-.ideas-carousel {
-    margin-left: clamp(1rem, 5rem, 5vw);
-    margin-right: clamp(1rem, 5rem, 10vw);
-    flex: 1;
-    min-width: 0;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
+.expl-card {
     position: relative;
-    overflow: hidden;
+    background-color: var(--green);
+    color: var(--bg);
+    padding: 1.5rem 1.5rem 2.75rem;
+    max-width: 300px;
+    border-radius: 1.25rem;
 }
 
-.ideas .carousel {
-    position: absolute;
-    inset: 0;
-}
-
-.ideas {
-    flex: 1;
-    min-width: 0;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
+.exp-title {
+    font-size: 1.4rem;
+    line-height: 1.3;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
 }
 
 .row {
-    margin-bottom: 100px;
+    margin-bottom: 7rem;
     display: flex;
     flex-direction: row;
     gap: 1rem;
@@ -230,84 +174,12 @@ h2 {
     height: 5rem;
 }
 
-.faq-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin: 5rem;
-    background-color: black;
-    border-radius: 1rem;
-    font-family: var(--font-dot), sans-serif;
-    color: var(--warn);
+.first-card {
+    position: relative;
 }
 
-.ideas-fade {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background:
-        linear-gradient(
-            to bottom,
-            var(--bg) 0%,
-            color-mix(in oklab, var(--bg), transparent 60%) 25%,
-            transparent 35%
-        ),
-        linear-gradient(
-            to top,
-            var(--bg) 0%,
-            color-mix(in oklab, var(--bg), transparent 60%) 25%,
-            transparent 35%
-        );
-}
-
-.faq {
-    padding: 1rem;
-}
-
-.faq-question-desc {
-    font-size: 1.5rem;
-    color: white;
-    margin: 0;
-    padding: 0.5rem 0;
-}
-
-summary {
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1.2rem;
-}
-
-.italic {
-    font-weight: 400;
-    font-style: italic;
-}
-
-.deadline-container {
-    position: absolute;
-    top: 0;
-    right: 100px;
-    z-index: 1000;
-    padding: 0;
-}
-
-.deadline-p {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.deadline {
-    background-color: var(--danger);
-    padding: 0.5rem 1rem;
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-    padding-top: 3rem;
-    margin-top: -2rem;
-    transition: transform 0.3s ease;
-}
-
-.deadline:hover {
-    transform: scale(1.1) rotate(5deg);
+.second-card {
+    position: relative;
 }
 
 .logo {
@@ -348,12 +220,89 @@ summary {
     transform: rotate(25deg);
 }
 
-.first-card {
+.interrail-logo {
+    position: absolute;
+    bottom: -2rem;
+    right: 1rem;
+    transform: rotate(5deg);
+}
+
+.ideas {
+    flex: 1 1 0%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
     position: relative;
 }
 
-.second-card {
-    position: relative;
+.ideas-title {
+    margin-bottom: 1.5rem;
+}
+
+.ideas-carousel {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    align-content: start;
+}
+
+.idea-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--green);
+    color: var(--bg);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.idea-card-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+}
+
+.sign {
+    width: clamp(1rem, 20vw, 10rem);
+    padding: 5rem;
+    display: flex;
+    align-items: end;
+    padding-bottom: 0px;
+    margin-bottom: -5rem;
+}
+
+.sign-image {
+    width: 100%;
+    height: fit-content;
+    display: block;
+    object-fit: contain;
+}
+
+.idea-card-title {
+    margin: 1rem 1rem 0.25rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.idea-card-desc {
+    margin: 0 1rem 1.25rem;
+    font-size: 0.95rem;
+    line-height: 1.45;
+}
+
+.faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 5rem;
+    background-color: black;
+    border-radius: 1rem;
+    font-family: var(--font-dot), sans-serif;
+    color: var(--warn);
+}
+
+.faq {
+    padding: 1rem;
 }
 
 .faq-title {
@@ -374,17 +323,67 @@ summary {
     font-weight: bold;
 }
 
-.interrail-logo {
+.faq-question-desc {
+    font-size: 1.5rem;
+    color: white;
+    margin: 0;
+    padding: 0.5rem 0;
+}
+
+summary {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.italic {
+    font-weight: 400;
+    font-style: italic;
+}
+
+.deadline-container {
     position: absolute;
-    bottom: -2rem;
-    right: 1rem;
-    transform: rotate(5deg);
+    top: 0;
+    right: 100px;
+    z-index: 1000;
+    padding: 0;
+}
+
+.deadline-p {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.deadline {
+    background-color: var(--danger);
+    padding: 3rem 1rem 0.5rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    margin-top: -2rem;
+    transition: transform 0.3s ease;
+}
+
+.deadline:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .deadline {
+        transition: none;
+    }
+
+    .deadline:hover {
+        transform: none;
+    }
 }
 
 @media (max-width: 768px) {
     .expl-container {
         flex-direction: column;
+        gap: 1rem;
         margin: 2rem;
+        margin-bottom: 2rem;
     }
 
     .title-container {
@@ -435,10 +434,6 @@ summary {
         visibility: hidden;
     }
 
-    .cards {
-        gap: 1rem;
-    }
-
     .mobilearrow {
         display: block;
         width: 5rem;
@@ -457,7 +452,7 @@ summary {
     }
 
     .row {
-        margin-bottom: 0px;
+        margin-bottom: 0;
         align-items: center;
         justify-content: center;
     }
@@ -475,25 +470,14 @@ summary {
     }
 
     .expl {
-        margin-bottom: 0rem;
+        margin-bottom: 0;
     }
 
-    .expl-container {
-        gap: 1rem;
-        margin-bottom: 2rem;
+    .cards {
+        gap: 1.25rem;
     }
 
     .ideas-carousel {
-        min-height: 70vh;
-        margin-left: 2rem;
-        margin-right: 2rem;
-    }
-
-    .ideas-title {
-        margin-bottom: 3rem;
-    }
-
-    .carousel {
-        margin-top: 0;
+        grid-template-columns: 1fr;
     }
 }
