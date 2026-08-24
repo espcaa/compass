@@ -21,6 +21,10 @@ FROM base AS runtime
 RUN apk add --no-cache libstdc++ wget
 COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
+COPY drizzle.config.ts ./
+COPY src/db/schema.ts ./src/db/schema.ts
+RUN mkdir -p /app/data
+
 
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
@@ -30,4 +34,4 @@ EXPOSE 4321
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD wget -qO- http://localhost:4321/ || exit 1
 
-CMD ["node", "./dist/server/entry.mjs"]
+CMD ["sh", "-c", "npx drizzle-kit push --config=drizzle.config.ts && node dist/server/entry.mjs"]
