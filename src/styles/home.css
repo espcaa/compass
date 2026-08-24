@@ -132,7 +132,7 @@
 }
 
 .expl-container {
-    gap: 2rem;
+    gap: clamp(1rem, 20vw, 10rem);
     margin: 5rem;
     display: flex;
     flex-direction: row;
@@ -145,6 +145,8 @@
 
 .expl {
     flex: 1;
+    min-width: 0;
+    margin-bottom: 5rem;
 }
 
 .expl-card {
@@ -168,7 +170,7 @@
     display: flex;
     margin: 2rem;
     flex-direction: column;
-    gap: 5rem;
+    gap: 1rem;
 }
 
 h2 {
@@ -176,13 +178,35 @@ h2 {
     font-size: 3rem;
 }
 
-.ideas {
+.ideas-carousel {
+    margin-left: clamp(1rem, 5rem, 5vw);
+    margin-right: clamp(1rem, 5rem, 10vw);
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
     display: flex;
     flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.ideas .carousel {
+    position: absolute;
+    inset: 0;
+}
+
+.ideas {
     flex: 1;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
 }
 
 .row {
+    margin-bottom: 100px;
     display: flex;
     flex-direction: row;
     gap: 1rem;
@@ -196,18 +220,14 @@ h2 {
 
 .expl-arrow-container {
     display: flex;
-    align-items: end;
-    justify-content: end;
+    align-items: start;
+    justify-content: start;
+    margin-right: 10%;
 }
 
 .expl-arrow {
     width: 5rem;
     height: 5rem;
-}
-
-summary,
-details {
-    list-style: none;
 }
 
 .faq-container {
@@ -219,6 +239,25 @@ details {
     border-radius: 1rem;
     font-family: var(--font-dot), sans-serif;
     color: var(--warn);
+}
+
+.ideas-fade {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(
+            to bottom,
+            var(--bg) 0%,
+            color-mix(in oklab, var(--bg), transparent 60%) 25%,
+            transparent 35%
+        ),
+        linear-gradient(
+            to top,
+            var(--bg) 0%,
+            color-mix(in oklab, var(--bg), transparent 60%) 25%,
+            transparent 35%
+        );
 }
 
 .faq {
@@ -418,6 +457,7 @@ summary {
     }
 
     .row {
+        margin-bottom: 0px;
         align-items: center;
         justify-content: center;
     }
@@ -432,5 +472,28 @@ summary {
 
     .faq-container {
         margin: 2rem;
+    }
+
+    .expl {
+        margin-bottom: 0rem;
+    }
+
+    .expl-container {
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .ideas-carousel {
+        min-height: 70vh;
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+
+    .ideas-title {
+        margin-bottom: 3rem;
+    }
+
+    .carousel {
+        margin-top: 0;
     }
 }

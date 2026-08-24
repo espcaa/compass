@@ -8,28 +8,35 @@ export type Card = {
     image: ImageMetadata;
     alt: string;
     title: string;
+    description?: string;
 };
 interface Props {
     cards: Card[];
     direction: Direction;
+    ideas: boolean;
 }
 
 const { cards, direction } = Astro.props;
 const count = cards.length;
 const copies = 4;
 const cardWidth = 316;
-const cardHeight = 266.4;
+const cardHeight = 303.99;
 const duration = `${Math.max(count * 2, 12)}s`;
-const distance = `${-(count * cardWidth)}px`;
+const distanceX = `${-(count * cardWidth)}px`;
+const distanceY = `${-(count * cardHeight)}px`;
 const repeated = Array.from({ length: copies }, () => cards).flat();
 ---
 
-<div class="carousel" data-direction={direction}>
+<div
+    class="carousel"
+    data-direction={direction}
+    data-ideas={Astro.props.ideas ? "true" : "false"}
+>
     <div
         class="track"
         style={direction === "up"
-            ? `--distanceX: 0px; --distanceY: ${distance}; --duration: ${duration};`
-            : `--distanceX: ${distance}; --distanceY: 0px; --duration: ${duration};`}
+            ? `--distanceX: 0px; --distanceY: ${distanceY}; --duration: ${duration};`
+            : `--distanceX: ${distanceX}; --distanceY: 0px; --duration: ${duration};`}
     >
         {
             repeated.map((slide, i) => (
@@ -41,6 +48,9 @@ const repeated = Array.from({ length: copies }, () => cards).flat();
                     />
                     <div class="slide-content">
                         <h2 class="slide-title">{slide.title}</h2>
+                        {slide.description && (
+                            <p class="slide-description">{slide.description}</p>
+                        )}
                     </div>
                 </div>
             ))

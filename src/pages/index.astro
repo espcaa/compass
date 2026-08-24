@@ -14,6 +14,12 @@ import trainOutsideImage from "../assets/images/train_outside.jpg";
 import highSpeedTrainImage from "../assets/images/high_speed_train.jpg";
 import stockholmImage from "../assets/images/stockholm.jpg";
 
+import hardwareImage from "../assets/images/hardware.avif";
+import interrailImage from "../assets/images/interrail.webp";
+import nycMusicImage from "../assets/images/nycmusic.png";
+import trainlineImage from "../assets/images/trainline.png";
+import yourProjectImage from "../assets/images/yourproject.webp";
+
 // train logos
 import sjLogo from "../assets/images/logos/sj.svg";
 import sncfLogo from "../assets/images/logos/sncf.svg";
@@ -61,6 +67,42 @@ const cards: Card[] = [
         alt: "sorry no alt",
     },
 ];
+
+const projectCards: Card[] = [
+    {
+        title: "generative art",
+        image: nycMusicImage,
+        alt: "screenshot of trainjazz.com website",
+        description: "make generative art like music based on data!",
+    },
+    {
+        title: "train booking engine",
+        image: trainlineImage,
+        alt: "screenshot of trainline.com website",
+        description:
+            "make a better train booking engine for trains in your home country!",
+    },
+    {
+        title: "hardware project",
+        image: hardwareImage,
+        alt: "picture of a custom train departure display",
+        description:
+            "make a custom train departure display for your own bedroom!",
+    },
+    {
+        title: "interrail pass recap",
+        image: interrailImage,
+        alt: "picture of a train pass",
+        description:
+            'make a website that generates a "wrapped" of your interrail journey!',
+    },
+    {
+        title: "your project!",
+        image: yourProjectImage,
+        alt: "no alt",
+        description: "make your own project! the possibilities are endless!",
+    },
+];
 ---
 
 <BaseLayout title="hackrail">
@@ -96,7 +138,7 @@ const cards: Card[] = [
             </div>
             <div class="exp-container"><Map client:load /></div>
         </div>
-        <SillyCarousel direction="right" cards={cards} />
+        <SillyCarousel ideas={false} direction="right" cards={cards} />
         <div class="expl-container">
             <div class="expl">
                 <h2 class="expl-title">what is hackrail?</h2>
@@ -137,13 +179,6 @@ const cards: Card[] = [
                                 />
                             </div>
                         </div>
-                        <div class="expl-arrow-container">
-                            <Image
-                                src={ArrowTwo}
-                                class="expl-arrow"
-                                alt="arrow showing the second card"
-                            />
-                        </div>
                     </div>
                     <div class="mobilearrow-container">
                         <Image
@@ -153,6 +188,13 @@ const cards: Card[] = [
                         />
                     </div>
                     <div class="expl-end">
+                        <div class="expl-arrow-container">
+                            <Image
+                                src={ArrowTwo}
+                                class="expl-arrow"
+                                alt="arrow showing the second card"
+                            />
+                        </div>
                         <div class="second-card expl-card">
                             <h3 class="exp-title">
                                 get money for train tickets & train passes
@@ -169,29 +211,14 @@ const cards: Card[] = [
                 </div>
             </div>
             <div class="ideas">
-                <h2 class="ideas-title">what can you do?</h2>
-                <div class="ideas-cards">
-                    <div class="idea-card">
-                        <h3 class="idea-title">train tracker</h3>
-                        <p class="idea-desc">
-                            build a train tracker that shows the current
-                            location of trains in finland!
-                        </p>
-                    </div>
-                    <div class="idea-card">
-                        <h3 class="idea-title">train pass app</h3>
-                        <p class="idea-desc">
-                            build an app that shows the best train pass for your
-                            needs!
-                        </p>
-                    </div>
-                    <div class="idea-card">
-                        <h3 class="idea-title">train ticket bot</h3>
-                        <p class="idea-desc">
-                            build a bot that finds the best train tickets for
-                            your needs!
-                        </p>
-                    </div>
+                <h2 class="ideas-title">what can you make?</h2>
+                <div class="ideas-carousel">
+                    <SillyCarousel
+                        ideas={true}
+                        direction="up"
+                        cards={projectCards}
+                    />
+                    <div class="ideas-fade"></div>
                 </div>
             </div>
         </div>
