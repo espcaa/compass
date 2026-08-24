@@ -249,15 +249,17 @@ h2 {
 .idea-card {
     display: flex;
     flex-direction: column;
-    background-color: var(--green);
-    color: var(--bg);
+    background-color: var(--danger);
+    color: var(--fg);
     border-radius: 1rem;
-    overflow: hidden;
+    padding: 0.5rem;
+    max-width: 300px;
 }
 
 .idea-card-image {
-    width: 100%;
     height: 150px;
+    width: 100%;
+    border-radius: 0.5rem;
     object-fit: cover;
     display: block;
 }
@@ -279,15 +281,17 @@ h2 {
 }
 
 .idea-card-title {
-    margin: 1rem 1rem 0.25rem;
+    margin: 1rem;
+    margin-bottom: 0;
     font-size: 1.2rem;
     font-weight: bold;
 }
 
 .idea-card-desc {
-    margin: 0 1rem 1.25rem;
     font-size: 0.95rem;
     line-height: 1.45;
+    margin: 1rem;
+    margin-top: 0rem;
 }
 
 .faq-container {
@@ -479,5 +483,9 @@ summary {
 
     .ideas-carousel {
         grid-template-columns: 1fr;
+    }
+
+    .sign {
+        display: none;
     }
 }

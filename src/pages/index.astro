@@ -211,17 +211,23 @@ const projectCards: Card[] = [
                 <h2 class="ideas-title">what can you make?</h2>
                 <div class="ideas-carousel">
                     {
-                        projectCards.map((card) => (
-                            <div class="idea-card">
-                                <Image
-                                    src={card.image}
-                                    alt={card.alt}
-                                    class="idea-card-image"
-                                />
-                                <h3 class="idea-card-title">{card.title}</h3>
-                                <p class="idea-card-desc">{card.description}</p>
-                            </div>
-                        ))
+                        projectCards.map((card) => {
+                            return (
+                                <div class="idea-card">
+                                    <Image
+                                        src={card.image}
+                                        alt={card.alt}
+                                        class="idea-card-image"
+                                    />
+                                    <h3 class="idea-card-title">
+                                        {card.title}
+                                    </h3>
+                                    <p class="idea-card-desc">
+                                        {card.description}
+                                    </p>
+                                </div>
+                            );
+                        })
                     }
                 </div>
             </div>
