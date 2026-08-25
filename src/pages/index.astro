@@ -281,22 +281,41 @@ const projectCards: Card[] = [
                             <summary class="faq-question-title">
                                 can i only participate if i'm in europe?
                             </summary>
-                            <p class="faq-question-desc">/</p>
+                            <p class="faq-question-desc">
+                                no, everyone can participate! we might not have
+                                prizes for your region though, but we can
+                                probably find something!
+                            </p>
+                        </details>
+                        <details class="faq-question">
+                            <summary class="faq-question-title">
+                                what can i get exactly?
+                            </summary>
+                            <p class="faq-question-desc">
+                                click on the "Get started" button to access the
+                                platform & get all the details :)
+                            </p>
                         </details>
                     </div>
                 </h2>
             </div>
+            <script type="text/javascript">
+                // update the time in the faq title with the current time every second
+                setInterval(() => {
+                    const timeElement = document.getElementById("time");
+                    const now = new Date();
+                    const hours = now.getHours().toString().padStart(2, "0");
+                    const minutes = now
+                        .getMinutes()
+                        .toString()
+                        .padStart(2, "0");
+                    const seconds = now
+                        .getSeconds()
+                        .toString()
+                        .padStart(2, "0");
+                    timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+                }, 1000);
+            </script>
         </div>
-        <script type="text/javascript">
-            // update the time in the faq title with the current time every second
-            setInterval(() => {
-                const timeElement = document.getElementById("time");
-                const now = new Date();
-                const hours = now.getHours().toString().padStart(2, "0");
-                const minutes = now.getMinutes().toString().padStart(2, "0");
-                const seconds = now.getSeconds().toString().padStart(2, "0");
-                timeElement.textContent = `${hours}:${minutes}:${seconds}`;
-            }, 1000);
-        </script>
-    </main></BaseLayout
->
+    </main>
+</BaseLayout>
