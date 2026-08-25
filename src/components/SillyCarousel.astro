@@ -43,6 +43,7 @@ const repeated = Array.from({ length: copies }, () => cards).flat();
                 <div class="slide" aria-hidden={i >= count}>
                     <Image
                         src={slide.image}
+                        width={cardWidth * 2}
                         alt={slide.alt}
                         class="slide-image"
                     />
