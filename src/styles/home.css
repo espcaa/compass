@@ -105,7 +105,7 @@
     font-size: 1.2rem;
     line-height: 1.2;
     text-align: center;
-    color: var(--fg-muted);
+    color: var(--fg);
 }
 
 .expl-container {
