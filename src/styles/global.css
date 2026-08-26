@@ -52,7 +52,7 @@ body {
     flex-shrink: 0;
 }
 
-a.button {
+.button {
     width: fit-content;
     padding: 0.5rem 0.7rem;
     border-radius: 0.5rem;
@@ -76,4 +76,44 @@ a.button {
 
 a.button:hover {
     box-shadow: 0 4px 12px rgba(139, 219, 134, 0.25);
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.ycentered {
+    display: flex;
+    align-items: center;
+}
+
+.gap {
+    gap: 1rem;
+}
+
+.surface {
+    background-color: var(--bg-elevated);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    width: fit-content;
+}
+
+.surface > p {
+    margin: 0;
+}
+
+.dangerbg {
+    background-color: var(--danger);
+    color: var(--bg);
+}
+
+.warnbg {
+    background-color: var(--warn);
+    color: var(--bg);
+}
+
+.greenbg {
+    background-color: var(--green);
+    color: var(--bg);
 }

@@ -1,7 +1,8 @@
 import { db } from "../db/index.ts";
 import { tokens, users } from "../db/schema.ts";
 import { eq } from "drizzle-orm";
-import { type Result, type UserProfile } from "../shared/types.ts";
+import { type Result } from "../shared/types.ts";
+import { type User } from "../db/schema.ts";
 import { createHash, randomUUID } from "crypto";
 
 export async function GenerateToken(slackId: string): Promise<string> {
@@ -23,7 +24,7 @@ function hashToken(token: string): string {
 
 export async function ValidateToken(
   token: string,
-): Promise<Result<UserProfile>> {
+): Promise<Result<User>> {
   const hashedToken = hashToken(token);
 
   console.log(JSON.stringify(token), hashedToken);
@@ -67,9 +68,17 @@ export async function RevokeToken(token: string): Promise<Result<void>> {
   return { ok: true, value: undefined };
 }
 
+export async function GetUserFromCookies(cookies: { get: (name: string) => { value: string } | undefined }): Promise<User | null> {
+  const token = cookies.get("hackrail_token")?.value;
+  if (!token) return null;
+
+  const result = await ValidateToken(token);
+  return result.ok ? result.value : null;
+}
+
 export async function GetUserProfileBySlackId(
   slackId: string,
-): Promise<Result<UserProfile>> {
+): Promise<Result<User>> {
   const userRow = db
     .select()
     .from(users)
@@ -80,15 +89,8 @@ export async function GetUserProfileBySlackId(
     return { ok: false, error: new Error("user not found") };
   }
 
-  const userProfile: UserProfile = {
-    slackid: userRow.slackId,
-    name: userRow.name,
-    email: userRow.email,
-    avatar: userRow.avatar,
-  };
-
   return {
     ok: true,
-    value: userProfile,
+    value: userRow,
   };
 }

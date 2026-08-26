@@ -1,0 +1,45 @@
+.separated-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.content-right {
+    margin: 4rem;
+    width: 100%;
+}
+
+.form {
+    max-width: 600px;
+}
+
+input,
+textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="file"]::file-selector-button {
+    background-color: var(--fg-muted);
+    color: var(--bg);
+    font-family: var(--font-rail), sans-serif;
+    border: none;
+    padding: 8px 16px;
+    margin-right: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.image-left {
+    height: 100vh;
+    width: 40vw;
+    flex-shrink: 0;
+}
+
+.amaze {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

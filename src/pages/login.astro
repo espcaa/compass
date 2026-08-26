@@ -19,7 +19,7 @@ if (Astro.cookies.has("hackrail_token")) {
         // token is invalid, redirect to oauth page for login/account creation
         return Astro.redirect(oauthUrl);
     } else {
-        return Astro.redirect("/dashboard");
+        return Astro.redirect("/station/home");
     }
 } else {
     // user is not logged in, redirect to oauth page

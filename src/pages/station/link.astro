@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../layouts/base.astro";
+
+// build oauth url
+const client_id = import.meta.env.PUBLIC_HACKATIME_CLIENT_ID;
+const redirect_uri = import.meta.env.PUBLIC_HACKATIME_REDIRECT_URI;
+
+const oauthUrl = `https://hackatime.hackclub.com/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code&scope=profile+read`;
+---
+
+<BaseLayout title="Link" hideFooter={true}>
+    <div class="margin">
+        <div class="link-container">
+            <h1>hackatime link required</h1>
+            <p>we need your hackatime account before creating projects :0</p>
+            <a class="button" href={oauthUrl}>link hackatime</a>
+        </div>
+    </div>
+</BaseLayout>

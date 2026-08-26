@@ -1,47 +1,148 @@
 ---
+import type { User, Project } from "../../db/schema";
+
 interface Props {
-  users: {
-    slackId: string;
-    name: string;
-    email: string;
-    avatar: string;
-    createdAt: string;
-  }[];
+    users: User[];
+    projects: Project[];
 }
 
-const { users } = Astro.props;
+const { users, projects } = Astro.props;
 ---
 
 <div>
-  <h2>Users ({users.length})</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Avatar</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Slack ID</th>
-        <th>Signed Up</th>
-      </tr>
-    </thead>
-    <tbody>
-      {users.map((user) => (
-        <tr>
-          <td>
-            <img
-              src={user.avatar}
-              alt={user.name}
-              width={32}
-              height={32}
-              style={{ borderRadius: "50%" }}
-            />
-          </td>
-          <td>{user.name}</td>
-          <td>{user.email}</td>
-          <td><code>{user.slackId}</code></td>
-          <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
+    <h2>Users ({users.length})</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Avatar</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Slack ID</th>
+                <th>Signed Up</th>
+                <th>Hackatime linked</th>
+                <th>Project number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {
+                users.map((user) => (
+                    <tr>
+                        <td>
+                            <img
+                                src={user.avatar}
+                                alt={user.name}
+                                width={32}
+                                height={32}
+                                style={{ borderRadius: "50%" }}
+                            />
+                        </td>
+                        <td>{user.name}</td>
+                        <td>{user.email}</td>
+                        <td>
+                            <code>{user.slackId}</code>
+                        </td>
+                        <td>{user.createdAt.toLocaleDateString()}</td>
+                        <td>{user.hackatimeLinked ? "yes" : "no"}</td>
+                        <td>
+                            {
+                                projects.filter(
+                                    (p) => p.authorSlackId === user.slackId,
+                                ).length
+                            }
+                        </td>
+                        <td>
+                            <a
+                                class="button dangerbg"
+                                id={`delete-user-${user.slackId}`}
+                            >
+                                unlink hackatime
+                            </a>
+                        </td>
+                    </tr>
+                ))
+            }
+        </tbody>
+    </table>
+    <h2>Projects ({projects.length})</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Author</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {
+                projects.map((project) => (
+                    <tr>
+                        <td>
+                            <img
+                                src={project.image || "/assets/images/bonk.png"}
+                                alt={project.name}
+                                width={32}
+                                height={32}
+                                style={{ borderRadius: "50%" }}
+                            />
+                        </td>
+                        <td>{project.name}</td>
+                        <td>{project.description}</td>
+                        <td>
+                            {users.find(
+                                (u) => u.slackId === project.authorSlackId,
+                            )?.name || "Unknown"}
+                        </td>
+                        <td>{project.createdAt.toLocaleDateString()}</td>
+                        <td>
+                            <a
+                                class="button dangerbg"
+                                id={`delete-project-${project.id}`}
+                            >
+                                delete project
+                            </a>
+                        </td>
+                    </tr>
+                ))
+            }
+        </tbody>
+    </table>
 </div>
+<script>
+    document.querySelectorAll("[id^='delete-user-']").forEach((button) => {
+        button.addEventListener("click", async () => {
+            const slackId = button.id.replace("delete-user-", "");
+            const response = await fetch(
+                `/api/admin/unlink-hackatime?slackId=${slackId}`,
+                {
+                    method: "POST",
+                },
+            );
+            if (response.ok) {
+                location.reload();
+            } else {
+                console.error("Failed to delete user:", response.statusText);
+            }
+        });
+    });
+
+    document.querySelectorAll("[id^='delete-project-']").forEach((button) => {
+        button.addEventListener("click", async () => {
+            const projectId = button.id.replace("delete-project-", "");
+            const response = await fetch(
+                `/api/admin/delete-project?projectId=${projectId}`,
+                {
+                    method: "POST",
+                },
+            );
+            if (response.ok) {
+                location.reload();
+            } else {
+                console.error("Failed to delete project:", response.statusText);
+            }
+        });
+    });
+</script>

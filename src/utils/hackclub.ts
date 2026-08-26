@@ -1,6 +1,6 @@
 import { db } from "../db/index";
-import { users } from "../db/schema";
-import { type Result, type UserProfile } from "../shared/types";
+import { users, type User } from "../db/schema";
+import { type Result } from "../shared/types";
 import { GenerateToken, GetUserProfileBySlackId } from "./auth";
 
 // Login takes a hackclub oauth code & returns a hackrail token
@@ -58,17 +58,20 @@ async function Login(code: string): Promise<Result<string>> {
     const profileData = await profileResponse.json();
 
     // check if the user alr exists
-    const dbUserProfile = await GetUserProfileBySlackId(profileData.slack_id);
+    const dbUserProfile = await GetUserProfileBySlackId(profileData.identity.slack_id);
     if (!dbUserProfile.ok) {
       // the user doesn't have a profile yet
-      const profile: UserProfile = {
-        slackid: profileData.identity.slack_id,
+      const profile: User = {
+        slackId: profileData.identity.slack_id,
         name: profileData.identity.first_name,
         email: profileData.identity.primary_email,
         avatar:
           "https://cachet.dunkirk.sh/users/" +
           profileData.identity.slack_id +
           "/r",
+        hackatimeLinked: 0,
+        hackatimeToken: "",
+        createdAt: new Date(),
       };
 
       // now we can use the profile to get a hackrail token
@@ -83,18 +86,27 @@ async function Login(code: string): Promise<Result<string>> {
   }
 }
 
-async function upsertUser(profile: UserProfile) {
+export async function upsertUser(profile: User) {
+  console.log("upserting user", profile);
   const [row] = await db
     .insert(users)
     .values({
-      slackId: profile.slackid,
+      slackId: profile.slackId,
       name: profile.name,
       email: profile.email,
       avatar: profile.avatar,
+      hackatimeLinked: profile.hackatimeLinked,
+      hackatimeToken: profile.hackatimeToken,
     })
     .onConflictDoUpdate({
       target: users.slackId,
-      set: { name: profile.name, email: profile.email, avatar: profile.avatar },
+      set: {
+        name: profile.name,
+        email: profile.email,
+        avatar: profile.avatar,
+        hackatimeLinked: profile.hackatimeLinked,
+        hackatimeToken: profile.hackatimeToken,
+      },
     })
     .returning();
 

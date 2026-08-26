@@ -1,0 +1,43 @@
+---
+import { GetUserFromCookies } from "../../utils/auth";
+import { upsertUser } from "../../utils/hackclub";
+import { HackatimeLogin } from "../../utils/hackatime";
+import { type User } from "../../db/schema";
+
+// we are LINKING this hackatime account
+
+const code = Astro.url.searchParams.get("code");
+
+if (!code) {
+    return Astro.redirect(`/error?code=missing_code`);
+}
+
+const user = await GetUserFromCookies(Astro.cookies);
+
+if (!user) {
+    return Astro.redirect("/401");
+}
+
+const tokenResult = await HackatimeLogin(code);
+
+if (!tokenResult.ok) {
+    return Astro.redirect(
+        `/error?code=auth_failed&message=${tokenResult.error.message}`,
+    );
+} else {
+    // save the token to the user db & enable hackatimeLinked
+    if (!tokenResult.token) {
+        return Astro.redirect(`/error?code=auth_failed&message=missing_token`);
+    }
+    const token = tokenResult.token;
+    const newUser: User = {
+        ...user,
+        hackatimeToken: token,
+        hackatimeLinked: 1,
+    };
+
+    await upsertUser(newUser);
+
+    return Astro.redirect("/station/home");
+}
+---

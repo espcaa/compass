@@ -1,0 +1,77 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/base.astro";
+import "../../styles/home.css";
+import { GetUserFromCookies } from "../../utils/auth.ts";
+import { GetProjectsForUser } from "../../utils/misc.ts";
+
+const user = await GetUserFromCookies(Astro.cookies);
+// now get user projects
+if (!user) {
+    return Astro.redirect("/login");
+}
+const projects = await GetProjectsForUser(user.slackId);
+---
+
+<BaseLayout title="Home" hideFooter={false}>
+    <div class="header">
+        <a class="button" href="/logout">logout</a>
+        <Image
+            src={user?.avatar || "/assets/images/bonk.png"}
+            width={32}
+            height={32}
+            class="avatar"
+            alt="pfp"
+        />
+    </div>
+
+    <div class="page">
+        <div class="projects">
+            <div class="row ycentered gap">
+                <h1>your projects</h1>
+                <a class="button" href="/station/projects/create">@</a>
+            </div>
+            {
+                projects.length === 0 && (
+                    <div class="surface warnbg">
+                        <p>
+                            you have no projects yet! click the @ button to
+                            create one.
+                        </p>
+                    </div>
+                )
+            }
+
+            <div class="row gap project-strip">
+                {
+                    projects.map((project) => (
+                        <a
+                            href={`/station/projects/${project.id}`}
+                            class="projectcard-link"
+                        >
+                            <div
+                                class="
+                    projectcard"
+                            >
+                                <Image
+                                    class="projectcard-image"
+                                    src={project.image || ""}
+                                    width={128}
+                                    height={128}
+                                    alt="project image"
+                                />
+                                <div class="projectcard-content">
+                                    <h2>{project.name}</h2>
+                                    <p>
+                                        {project.description.substring(0, 100)}
+                                        ...
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</BaseLayout>

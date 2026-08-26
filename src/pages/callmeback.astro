@@ -1,7 +1,6 @@
 ---
 export const prerender = false;
 
-import "../styles/callmeback.css";
 import { Login } from "../utils/hackclub";
 
 // get the url params
@@ -23,9 +22,8 @@ if (!loginResult.ok) {
     Astro.cookies.set("hackrail_token", loginResult.value, {
         httpOnly: true,
         secure: import.meta.env.PROD,
-        sameSite: "strict",
         maxAge: 60 * 60 * 24 * 7, // 1 week ig?
     });
-    return Astro.redirect("/dashboard");
+    return Astro.redirect("/station/home");
 }
 ---
