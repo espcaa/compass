@@ -1,0 +1,47 @@
+---
+interface Props {
+  users: {
+    slackId: string;
+    name: string;
+    email: string;
+    avatar: string;
+    createdAt: string;
+  }[];
+}
+
+const { users } = Astro.props;
+---
+
+<div>
+  <h2>Users ({users.length})</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Avatar</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Slack ID</th>
+        <th>Signed Up</th>
+      </tr>
+    </thead>
+    <tbody>
+      {users.map((user) => (
+        <tr>
+          <td>
+            <img
+              src={user.avatar}
+              alt={user.name}
+              width={32}
+              height={32}
+              style={{ borderRadius: "50%" }}
+            />
+          </td>
+          <td>{user.name}</td>
+          <td>{user.email}</td>
+          <td><code>{user.slackId}</code></td>
+          <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

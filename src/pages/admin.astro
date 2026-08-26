@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../layouts/base.astro";
+import ReactiveDashboard from "../components/admin/dashboard.astro";
+import { GetAllUsers } from "../components/admin/utils";
+
+const users = GetAllUsers();
+---
+
+<BaseLayout title="Admin Dashboard">
+    <h1>harry youre an admin</h1>
+    <ReactiveDashboard users={users} />
+</BaseLayout>

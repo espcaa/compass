@@ -22,7 +22,7 @@ if (!loginResult.ok) {
     // save the token to cookies :3
     Astro.cookies.set("hackrail_token", loginResult.value, {
         httpOnly: true,
-        secure: true,
+        secure: import.meta.env.PROD,
         sameSite: "strict",
         maxAge: 60 * 60 * 24 * 7, // 1 week ig?
     });

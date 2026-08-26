@@ -1,0 +1,23 @@
+---
+const { number, message } = Astro.props;
+
+import BaseLayout from "../layouts/base.astro";
+import "../styles/404.css";
+import { Image } from "astro:assets";
+import sixSevenBusImage from "../assets/images/67.png";
+---
+
+<BaseLayout title={number} hideFooter={true}>
+    <div class="fourhundredoforcontainer">
+        <div class="notsixsevenjoketrust">
+            <Image
+                src={sixSevenBusImage}
+                class="dwaboutit"
+                alt="low quality smartphone picture of a bus operating on the 67 bus line in stockholm, with pride and swedish flags on the roof."
+            />
+        </div>
+        <h1>{number}</h1>
+        <p>{message}</p>
+        <a class="button" href="/"> go home </a>
+    </div>
+</BaseLayout>
