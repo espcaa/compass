@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { UnlinkHackatimeForUser } from "../../../components/admin/utils";
+import { UnlinkHackatimeForUser } from "../../../utils/admin";
 
 export const POST: APIRoute = async ({ request }) => {
   const url = new URL(request.url);
