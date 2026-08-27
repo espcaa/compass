@@ -15,7 +15,7 @@ if (!loginResult.ok) {
     // something went wrong ono
     // redirect to error page with error message
     return Astro.redirect(
-        `/error?code=auth_failed&message=${loginResult.error.message}`,
+        `/error?code=auth_failed&message=${encodeURIComponent(loginResult.error.message)}`,
     );
 } else {
     // save the token to cookies :3

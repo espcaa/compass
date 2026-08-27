@@ -19,10 +19,12 @@
     --shadow: rgba(0, 0, 0, 0.5);
 
     font-size: 100%;
+    color-scheme: dark;
 }
 
 html {
     height: 100%;
+    color-scheme: dark;
 }
 
 body {
@@ -110,6 +112,11 @@ a.button:hover {
 
 .warnbg {
     background-color: var(--warn);
+    color: var(--bg);
+}
+
+.fgbg {
+    background-color: var(--fg);
     color: var(--bg);
 }
 

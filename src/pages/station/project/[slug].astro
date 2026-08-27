@@ -1,0 +1,64 @@
+---
+import { GetUserFromCookies } from "../../../utils/auth";
+import { GetProjectFromId } from "../../../utils/projects";
+import BaseLayout from "../../../layouts/base.astro";
+import "../../../styles/project.css";
+import { Image } from "astro:assets";
+
+const { slug } = Astro.params;
+
+const user = await GetUserFromCookies(Astro.cookies);
+const project = await GetProjectFromId(slug || "");
+
+if (!project) {
+    Astro.cookies.set("flash_error", "Project not found", {
+        path: "/",
+        maxAge: 10,
+    });
+
+    if (!user) {
+        return Astro.redirect("/");
+    }
+
+    return Astro.redirect("/station/home");
+}
+
+const isCurrentUserAuthor = project.authorSlackId === user?.slackId;
+---
+
+<BaseLayout title={project.projectName} hideFooter={true}>
+    <div class="content">
+        <div class="project-header">
+            <h1 class="project-title">{project.projectName}</h1>
+            {
+                isCurrentUserAuthor && (
+                    <a
+                        href={`/station/project/${project.id}/edit`}
+                        class="button warnbg"
+                    >
+                        Edit Project
+                    </a>
+                    <a
+                        href={`/station/project/${project.id}/delete`}
+                        class="button dangerbg"
+                    >
+                        Delete Project
+                    </a>
+                )
+            }
+        </div>
+        <Image
+            src={project.projectScreenshot || ""}
+            alt={project.projectName}
+            class="project-image"
+            width={512}
+            height={350}
+        />
+        <p>{project.projectDescription}</p>
+        {
+            isCurrentUserAuthor && (
+                <a href={`/station/project/${project.id}/edit`}>Edit Project</a>
+            )
+        }
+    </div>
+</BaseLayout>

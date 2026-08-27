@@ -21,9 +21,9 @@ if (!user) {
 const tokenResult = await HackatimeLogin(code);
 
 if (!tokenResult.ok) {
-    return Astro.redirect(
-        `/error?code=auth_failed&message=${tokenResult.error.message}`,
-    );
+     return Astro.redirect(
+         `/error?code=auth_failed&message=${encodeURIComponent(tokenResult.error.message)}`,
+     );
 } else {
     // save the token to the user db & enable hackatimeLinked
     if (!tokenResult.token) {

@@ -2,12 +2,27 @@ import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 
 export const users = sqliteTable("users", {
   slackId: text("slack_id").primaryKey(),
-  name: text("name").notNull(),
+
+  // pii yay
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
   email: text("email").notNull().unique(),
-  avatar: text("avatar").notNull(),
+  addressLine1: text("address_line_1").notNull(),
+  addressLine2: text("address_line_2").notNull(),
+  city: text("city").notNull(),
+  state: text("state").notNull(),
+  zipCode: text("zip_code").notNull(),
+  country: text("country").notNull(),
+  birthdate: text("birthdate").notNull(),
+
+  // hackatime
   hackatimeLinked: integer("is_hackatime_linked").notNull().default(0),
   hackatimeToken: text("hackatime_token").notNull().default(""),
-  shipped: integer("shipped").notNull().default(0),
+
+  // state
+  avatar: text("avatar").notNull(), // only used on website
+  banned: integer("banned").notNull().default(0),
+  note: text("note").notNull().default(""),
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
     .$defaultFn(() => new Date()),
@@ -15,19 +30,35 @@ export const users = sqliteTable("users", {
 
 export const projects = sqliteTable("projects", {
   id: integer("id").primaryKey({ autoIncrement: true }),
+
+  // author
   authorSlackId: text("author_slack_id")
     .notNull()
     .references(() => users.slackId, { onDelete: "cascade" }),
-  image: text("image").default(
+
+  // project details
+  projectName: text("project_name").notNull(),
+  projectScreenshot: text("image").default(
     "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Den_Haag_Hollands_Spoor.jpg/3840px-Den_Haag_Hollands_Spoor.jpg",
   ),
-  githubUrl: text("github_url").notNull(),
-  name: text("name").notNull(),
-  description: text("description").notNull(),
+  projectCodeUrl: text("project_code_url").notNull(),
+  projectPlayableUrl: text("project_playable_url").notNull().default(""),
+  projectDescription: text("project_description").notNull(),
+
+  // project state
   hackatimeProjects: text("hackatime_projects").notNull(),
+  shipped: integer("shipped").notNull().default(0),
+  rejected: integer("rejected").notNull().default(0),
+  approved: integer("approved").notNull().default(0),
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
     .$defaultFn(() => new Date()),
+
+  // review
+  overrideHoursSpent: integer("override_hours_spent").notNull().default(0),
+  overrideHoursSpentReason: text("override_hours_spent_reason")
+    .notNull()
+    .default(""),
 });
 
 export const tokens = sqliteTable("tokens", {

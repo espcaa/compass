@@ -9,6 +9,8 @@ const PROTECTED_ROUTES: Record<string, "auth" | "admin"> = {
   "/station": "auth",
 };
 
+const EXEMPTED_ROUTES = ["/station/project/"];
+
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
 
@@ -17,6 +19,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
   )?.[1];
 
   if (!level) return next();
+
+  const isExempted = EXEMPTED_ROUTES.some((prefix) =>
+    pathname.startsWith(prefix),
+  );
+
+  if (isExempted) return next();
 
   const token = context.cookies.get("hackrail_token")?.value;
 
@@ -31,12 +39,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return context.redirect("/403");
   }
 
-  if (
-    level === "admin" &&
-    !ADMIN_USERS.includes(verificationResponse.value?.slackId)
-  ) {
+  if (level === "admin" && !isAdmin(verificationResponse.value.slackId)) {
     return context.redirect("/403");
   }
 
   return next();
 });
+
+export function isAdmin(slackId: string): boolean {
+  return ADMIN_USERS.includes(slackId);
+}

@@ -121,3 +121,27 @@ input[type="file"]::file-selector-button {
 .combobox-tag-name {
     margin: 0;
 }
+
+.content {
+    padding: 2rem;
+}
+
+.project-title {
+    font-style: italic;
+    margin: 0;
+    margin-right: 3rem;
+    font-size: 3rem;
+}
+
+.project-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.project-image {
+    border-radius: 0.5rem;
+    object-fit: cover;
+}

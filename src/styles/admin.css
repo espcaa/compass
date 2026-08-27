@@ -1,0 +1,13 @@
+.content {
+    margin: 2rem;
+    font-family: sans-serif;
+}
+
+.pre {
+    color: var(--fg-muted);
+}
+
+td > a {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}

@@ -1,0 +1,66 @@
+---
+import { GetUserFromSlackId } from "../../../utils/admin";
+import BaseLayout from "../../../layouts/base.astro";
+import "../../../styles/admin.css";
+
+const { slug } = Astro.params;
+
+const user = GetUserFromSlackId(slug || "");
+
+if (!user) {
+    Astro.cookies.set("flash_error", "user not found", {
+        path: "/",
+        maxAge: 10,
+    });
+
+    return Astro.redirect("/admin");
+}
+---
+
+<BaseLayout title={`${user.firstName} ${user.lastName} - ${user.slackId}`} hideFooter={true}>
+    <div class="content">
+        <div class="project-header">
+            <img
+                src={user.avatar}
+                alt={user.firstName}
+                width="64"
+                height="64"
+            />
+            <h1 class="project-title">{user.firstName} {user.lastName} - {user.slackId}</h1>
+        </div>
+        <p class="pre">slack id:</p>
+        <p>{user.slackId}</p>
+        <p class="pre">first name:</p>
+        <p>{user.firstName}</p>
+        <p class="pre">last name:</p>
+        <p>{user.lastName}</p>
+        <p class="pre">email:</p>
+        <p>{user.email}</p>
+        <p class="pre">address line 1:</p>
+        <p>{user.addressLine1}</p>
+        <p class="pre">address line 2:</p>
+        <p>{user.addressLine2}</p>
+        <p class="pre">city:</p>
+        <p>{user.city}</p>
+        <p class="pre">state:</p>
+        <p>{user.state}</p>
+        <p class="pre">zip code:</p>
+        <p>{user.zipCode}</p>
+        <p class="pre">country:</p>
+        <p>{user.country}</p>
+        <p class="pre">birthdate:</p>
+        <p>{user.birthdate}</p>
+        <p class="pre">avatar:</p>
+        <p>{user.avatar}</p>
+        <p class="pre">hackatime linked:</p>
+        <p>{user.hackatimeLinked}</p>
+        <p class="pre">hackatime token:</p>
+        <p>{user.hackatimeToken}</p>
+        <p class="pre">banned:</p>
+        <p>{user.banned}</p>
+        <p class="pre">note:</p>
+        <p>{user.note}</p>
+        <p class="pre">created at:</p>
+        <p>{user.createdAt}</p>
+    </div>
+</BaseLayout>

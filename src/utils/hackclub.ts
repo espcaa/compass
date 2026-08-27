@@ -61,19 +61,33 @@ async function Login(code: string): Promise<Result<string>> {
     const dbUserProfile = await GetUserProfileBySlackId(
       profileData.identity.slack_id,
     );
+
+    const primaryAdress = profileData.identity.addresses.find(
+      (address: any) => address.primary,
+    );
+
     if (!dbUserProfile.ok) {
       // the user doesn't have a profile yet
       const profile: User = {
         slackId: profileData.identity.slack_id,
-        name: profileData.identity.first_name,
+        firstName: profileData.identity.first_name,
+        lastName: profileData.identity.last_name,
         email: profileData.identity.primary_email,
+        addressLine1: primaryAdress?.line_1 || "",
+        addressLine2: primaryAdress?.line_2 || "",
+        city: primaryAdress?.city || "",
+        state: primaryAdress?.state || "",
+        zipCode: primaryAdress?.postal_code || "",
+        country: primaryAdress?.country || "",
+        birthdate: profileData.identity.birthday,
         avatar:
           "https://cachet.dunkirk.sh/users/" +
           profileData.identity.slack_id +
           "/r",
+        banned: 0,
+        note: "",
         hackatimeLinked: 0,
         hackatimeToken: "",
-        shipped: 0,
         createdAt: new Date(),
       };
 
@@ -93,20 +107,23 @@ export async function upsertUser(profile: User) {
   console.log("upserting user", profile);
   const [row] = await db
     .insert(users)
-    .values({
-      slackId: profile.slackId,
-      name: profile.name,
-      email: profile.email,
-      avatar: profile.avatar,
-      hackatimeLinked: profile.hackatimeLinked,
-      hackatimeToken: profile.hackatimeToken,
-    })
+    .values(profile)
     .onConflictDoUpdate({
       target: users.slackId,
       set: {
-        name: profile.name,
+        firstName: profile.firstName,
+        lastName: profile.lastName,
         email: profile.email,
+        addressLine1: profile.addressLine1,
+        addressLine2: profile.addressLine2,
+        city: profile.city,
+        state: profile.state,
+        zipCode: profile.zipCode,
+        country: profile.country,
+        birthdate: profile.birthdate,
         avatar: profile.avatar,
+        banned: profile.banned,
+        note: profile.note,
         hackatimeLinked: profile.hackatimeLinked,
         hackatimeToken: profile.hackatimeToken,
       },

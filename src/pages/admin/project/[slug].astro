@@ -1,0 +1,58 @@
+---
+import { GetProjectFromId } from "../../../utils/projects";
+import BaseLayout from "../../../layouts/base.astro";
+import "../../../styles/admin.css";
+
+const { slug } = Astro.params;
+
+const project = await GetProjectFromId(slug || "");
+
+if (!project) {
+    Astro.cookies.set("flash_error", "Project not found", {
+        path: "/",
+        maxAge: 10,
+    });
+
+    return Astro.redirect("/admin");
+}
+---
+
+<BaseLayout title={project.projectName} hideFooter={true}>
+    <div class="content">
+        <div class="project-header">
+            <h1 class="project-title">{project.projectName} - {project.id}</h1>
+        </div>
+        <p class="pre">description:</p>
+        <p>{project.projectCodeUrl}</p>
+        <p class="pre">created at:</p>
+        <p>{project.createdAt}</p>
+        <p class="pre">slack id:</p>
+        <p>{project.authorSlackId}</p>
+        <a class="button" href={`/admin/user/${project.authorSlackId}`}
+            >View Author</a
+        >
+
+        <p class="pre">project screenshots:</p>
+        <img
+            src={project.projectScreenshot}
+            alt="screenshot 1"
+            width="512"
+            height="350"
+        />
+        <p class="pre">project code url:</p>
+        <p>{project.projectCodeUrl}</p>
+        <p class="pre">project playable url:</p>
+        <p>{project.projectPlayableUrl}</p>
+        <p class="pre">project description:</p>
+        <p>{project.projectDescription}</p>
+        <p class="pre">project hackatime projects:</p>
+        <p>{project.hackatimeProjects}</p>
+        <p>shipped: {project.shipped}</p>
+        <p>rejected: {project.rejected}</p>
+        <p>approved: {project.approved}</p>
+        <p class="pre">override hours spent:</p>
+        <p>{project.overrideHoursSpent}</p>
+        <p class="pre">override hours spent reason:</p>
+        <p>{project.overrideHoursSpentReason}</p>
+    </div>
+</BaseLayout>

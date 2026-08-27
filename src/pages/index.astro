@@ -97,9 +97,25 @@ const projectCards: Card[] = [
         description: "make your own project! the possibilities are endless!",
     },
 ];
+
+// get error from cookies
+const error = Astro.cookies.get("flash_error")?.value;
+if (error) {
+  Astro.cookies.delete("flash_error", { path: "/" });
+}
 ---
 
 <BaseLayout title="hackrail">
+    {
+        error && (
+            <div
+                class="surface dangerbg"
+                style="width: 100%; border-radius: 0; padding: 1rem; margin-bottom: 1rem;"
+            >
+                <p>{error}</p>
+            </div>
+        )
+    }
     <main>
         <div class="deadline-container">
             <div class="deadline">

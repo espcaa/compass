@@ -9,6 +9,14 @@ import {
     type HackatimeProject,
 } from "../../utils/hackatime";
 import { formatSeconds } from "../../utils/time";
+import type { Project } from "../../db/schema";
+import { isAdmin } from "../../middleware";
+
+// get error from cookies
+const error = Astro.cookies.get("flash_error")?.value;
+if (error) {
+    Astro.cookies.delete("flash_error", { path: "/" });
+}
 
 const user = await GetUserFromCookies(Astro.cookies);
 // now get user projects
@@ -28,6 +36,11 @@ if (hackData.ok) {
 var projectTimeSpent: { [key: string]: string } = {};
 var totalTimeSpent = 0;
 
+var totalTimeUnshipped = 0;
+var totalTimeUnreviewed = 0;
+var totalTimeRejected = 0;
+var totalTimeApproved = 0;
+
 for (const project of projects) {
     var timeSpent = 0;
     var hackatimeProjectNames = JSON.parse(project.hackatimeProjects);
@@ -39,17 +52,49 @@ for (const project of projects) {
         }
     }
 
+    // categorize time spent by project status
+    if (project.shipped) {
+        const projectReviewed = !project.approved && !project.rejected;
+        if (!projectReviewed) {
+            totalTimeUnreviewed += timeSpent;
+        } else if (project.approved) {
+            totalTimeApproved += timeSpent;
+        } else if (project.rejected) {
+            totalTimeRejected += timeSpent;
+        }
+    } else {
+        totalTimeUnshipped += timeSpent;
+    }
+
     projectTimeSpent[project.id] = formatSeconds(timeSpent);
 }
+
+// admin :3
+const admin = isAdmin(user.slackId);
 ---
 
 <BaseLayout title="Home" hideFooter={false}>
+    {
+        error && (
+            <div
+                class="surface dangerbg"
+                style="width: 100%; border-radius: 0; padding: 1rem; margin-bottom: 1rem;"
+            >
+                <p>{error}</p>
+            </div>
+        )
+    }
     <div class="header">
-        <div class="left">
-            <h1>Total time spent: {formatSeconds(totalTimeSpent)}</h1>
-        </div>
+        <div class="left"></div>
         <div class="right">
             <a class="button" href="/logout">logout</a>
+            {
+                admin && (
+                    <a class="button dangerbg" href="/admin">
+                        admin
+                    </a>
+                )
+            }
             <Image
                 src={user?.avatar || "/assets/images/bonk.png"}
                 width={32}
@@ -61,6 +106,63 @@ for (const project of projects) {
     </div>
 
     <div class="page">
+        <div class="time">
+            <h1 class="time-title">
+                {
+                    totalTimeSpent === 0
+                        ? "no hours logged yet ª"
+                        : `total time spent: ${formatSeconds(totalTimeSpent)}`
+                }
+            </h1>
+            <div class="progressbar">
+                <div
+                    class="progressbar-fill unshipped"
+                    style={`width: ${
+                        totalTimeSpent > 0
+                            ? (totalTimeUnshipped / totalTimeSpent) * 100
+                            : 0
+                    }%`}
+                >
+                </div>
+                <div
+                    class="progressbar-fill unreviewed"
+                    style={`width: ${
+                        totalTimeSpent > 0
+                            ? (totalTimeUnreviewed / totalTimeSpent) * 100
+                            : 0
+                    }%`}
+                >
+                </div>
+                <div
+                    class="progressbar-fill approved"
+                    style={`width: ${
+                        totalTimeSpent > 0
+                            ? (totalTimeApproved / totalTimeSpent) * 100
+                            : 0
+                    }%`}
+                >
+                </div>
+                <div
+                    class="progressbar-fill rejected"
+                    style={`width: ${
+                        totalTimeSpent > 0
+                            ? (totalTimeRejected / totalTimeSpent) * 100
+                            : 0
+                    }%`}
+                >
+                </div>
+            </div>
+            <div class="progressbar-labels">
+                <div class="color-box unshipped"></div>
+                <span>unshipped</span>
+                <div class="color-box unreviewed"></div>
+                <span>unreviewed</span>
+                <div class="color-box approved"></div>
+                <span>approved</span>
+                <div class="color-box rejected"></div>
+                <span>rejected</span>
+            </div>
+        </div>
         <div class="projects">
             <div class="row ycentered gap">
                 <h1>your projects</h1>
@@ -79,9 +181,9 @@ for (const project of projects) {
 
             <div class="row gap project-strip">
                 {
-                    projects.map((project) => (
+                    projects.map((project: Project) => (
                         <a
-                            href={`/station/projects/${project.id}`}
+                            href={`/station/project/${project.id}`}
                             class="projectcard-link"
                         >
                             <div
@@ -94,15 +196,19 @@ for (const project of projects) {
                                     </div>
                                     <Image
                                         class="projectcard-image"
-                                        src={project.image || ""}
+                                        src={project.projectScreenshot || ""}
                                         width={128}
                                         height={128}
                                         alt="project image"
                                     />
                                 </div>
                                 <div class="projectcard-content">
-                                    <h2 class="limited">{project.name}</h2>
-                                    <p class="limited">{project.description}</p>
+                                    <h2 class="limited">
+                                        {project.projectName}
+                                    </h2>
+                                    <p class="limited">
+                                        {project.projectDescription}
+                                    </p>
                                 </div>
                             </div>
                         </a>

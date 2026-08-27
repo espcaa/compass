@@ -14,6 +14,9 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const description = formData.get("description") as string;
   const githubUrl = formData.get("githubUrl") as string;
   const hackatimeProjects = formData.get("hackatimeProjects") as string;
+  const playableUrl = (formData.get("playableUrl") ??
+    formData.get("liveUrl") ??
+    "") as string;
 
   // check that hackatime projects are legit
   var hackatimeProjectNames = JSON.parse(hackatimeProjects) as string[];
@@ -38,7 +41,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
 
   if (image && image.size > 0) {
     try {
-      const compressedBuffer = await CompressImage(image, 1024);
+      const compressedBuffer = await CompressImage(image, 1920);
       imageUrl = await UploadImageToCDN(compressedBuffer, image.name);
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -50,28 +53,20 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     return redirect("/station/projects/create");
   }
 
-  if (!imageUrl) {
-    db.insert(projects)
-      .values({
-        authorSlackId: user.slackId,
-        name,
-        description,
-        githubUrl,
-        hackatimeProjects,
-      })
-      .run();
-  } else {
-    db.insert(projects)
-      .values({
-        authorSlackId: user.slackId,
-        name,
-        description,
-        githubUrl,
-        hackatimeProjects,
-        image: imageUrl,
-      })
-      .run();
-  }
+  await db.insert(projects).values({
+    authorSlackId: user.slackId,
+
+    projectName: name,
+    projectDescription: description,
+    projectCodeUrl: githubUrl,
+    projectPlayableUrl: playableUrl || "",
+    hackatimeProjects: hackatimeProjects,
+    projectScreenshot:
+      imageUrl ||
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Den_Haag_Hollands_Spoor.jpg/3840px-Den_Haag_Hollands_Spoor.jpg",
+    overrideHoursSpent: 0,
+    overrideHoursSpentReason: "",
+  });
 
   return redirect("/station/home");
 };

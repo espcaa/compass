@@ -6,12 +6,13 @@ import "../styles/global.css";
 import { Font } from "astro:assets";
 ---
 
-<html lang="en">
+<html lang="en" style="color-scheme: dark;">
     <head>
         <Font cssVariable="--font-rail" preload />
         <Font cssVariable="--font-dot" preload />
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="color-scheme" content="dark" />
         <BaseHead title={title} />
     </head>
     <body>
