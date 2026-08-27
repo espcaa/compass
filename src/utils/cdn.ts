@@ -22,9 +22,12 @@ export async function UploadImageToCDN(
   const formData = new FormData();
   formData.append("file", blob, fileName);
 
-  const response = await fetch("https://api.anonfiles.com/upload", {
+  const response = await fetch("https://cdn.hackclub.com/api/v4/upload", {
     method: "POST",
     body: formData,
+    headers: {
+      Authorization: `Bearer ${import.meta.env.CDN_API_KEY}`,
+    },
   });
 
   if (!response.ok) {
@@ -33,11 +36,7 @@ export async function UploadImageToCDN(
     );
   }
 
-  const data = await response.json();
+  const { url } = await response.json();
 
-  if (!data?.status || !data?.data?.file?.url?.full) {
-    throw new Error("Invalid response from CDN API");
-  }
-
-  return data.data.file.url.full;
+  return url;
 }

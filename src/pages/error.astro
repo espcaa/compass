@@ -19,6 +19,14 @@ switch (code) {
         additionalInfo =
             "i think hackclub identity forgot to give us an authentication code? or maybe you're just messing with me :sob:";
         break;
+    case "failed_to_fetch_projects":
+        additionalInfo =
+            "i tried to fetch your projects from hackatime but it failed, maybe try again later?";
+        break;
+    case "no_projects_found":
+        additionalInfo =
+            "i couldn't find any projects associated with your hackatime account... maybe try coding before creating a project?";
+        break;
     default:
         additionalInfo = "i don't know more about this error than you :sob:";
         break;

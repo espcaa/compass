@@ -5,7 +5,24 @@
 .header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+
+.right {
+    display: flex;
+    align-items: center;
     justify-content: end;
+    padding: 1rem;
+}
+
+.left > h1 {
+    margin: 0;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    justify-content: start;
     padding: 1rem;
 }
 
@@ -63,7 +80,6 @@ button.button {
     padding: 0rem;
     width: 180px;
     border-radius: 1rem;
-    overflow: hidden;
     margin-bottom: 1rem;
 }
 
@@ -72,8 +88,10 @@ button.button {
 }
 
 .projectcard-image {
+    border-start-start-radius: 1rem;
+    border-start-end-radius: 1rem;
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 h2 {
@@ -85,4 +103,35 @@ h2 {
     gap: 1rem;
     overflow-x: auto;
     padding-bottom: 1rem;
+}
+
+.limited {
+    white-space: nowrap;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+.limited:hover {
+    position: relative;
+    width: max-content;
+    overflow: visible;
+    white-space: normal;
+}
+
+.projectcard-image-container {
+    width: 100%;
+    position: relative;
+}
+
+.projectcard-time-spent {
+    position: absolute;
+    background-color: var(--green);
+    top: 0;
+    right: 0;
+    margin: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    width: fit-content;
+    color: var(--bg);
 }

@@ -43,3 +43,81 @@ input[type="file"]::file-selector-button {
     height: 100%;
     object-fit: cover;
 }
+
+.combobox {
+    position: relative;
+}
+
+.combobox-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.combobox-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    background: var(--fg);
+    color: var(--bg);
+    padding: 0.5rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.85rem;
+}
+
+.combobox-tag-remove {
+    background: none;
+    border: none;
+    color: var(--bg);
+    cursor: pointer;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.combobox-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-elevated);
+    border: 1px solid var(--fg-muted);
+    border-radius: 0.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.combobox-option {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+}
+
+.combobox-option:hover {
+    background: var(--bg-inset);
+}
+
+.combobox-option.selected {
+    background: var(--green);
+    color: var(--bg);
+}
+
+.combobox-option-meta {
+    color: var(--fg-muted);
+    font-size: 0.85rem;
+}
+
+.combobox-option.selected .combobox-option-meta {
+    color: var(--bg);
+}
+
+.combobox-tag-name {
+    margin: 0;
+}

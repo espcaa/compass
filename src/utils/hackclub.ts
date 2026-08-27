@@ -58,7 +58,9 @@ async function Login(code: string): Promise<Result<string>> {
     const profileData = await profileResponse.json();
 
     // check if the user alr exists
-    const dbUserProfile = await GetUserProfileBySlackId(profileData.identity.slack_id);
+    const dbUserProfile = await GetUserProfileBySlackId(
+      profileData.identity.slack_id,
+    );
     if (!dbUserProfile.ok) {
       // the user doesn't have a profile yet
       const profile: User = {
@@ -71,6 +73,7 @@ async function Login(code: string): Promise<Result<string>> {
           "/r",
         hackatimeLinked: 0,
         hackatimeToken: "",
+        shipped: 0,
         createdAt: new Date(),
       };
 

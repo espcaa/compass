@@ -4,6 +4,11 @@ import BaseLayout from "../../layouts/base.astro";
 import "../../styles/home.css";
 import { GetUserFromCookies } from "../../utils/auth.ts";
 import { GetProjectsForUser } from "../../utils/misc.ts";
+import {
+    GetHackatimeProjects,
+    type HackatimeProject,
+} from "../../utils/hackatime";
+import { formatSeconds } from "../../utils/time";
 
 const user = await GetUserFromCookies(Astro.cookies);
 // now get user projects
@@ -11,18 +16,48 @@ if (!user) {
     return Astro.redirect("/login");
 }
 const projects = await GetProjectsForUser(user.slackId);
+const hackData = await GetHackatimeProjects(user.slackId);
+var hackatimeProjects: HackatimeProject[];
+if (hackData.ok) {
+    hackatimeProjects = hackData.projects || [];
+} else {
+    hackatimeProjects = [];
+}
+
+// map of project id to time spent (str)
+var projectTimeSpent: { [key: string]: string } = {};
+var totalTimeSpent = 0;
+
+for (const project of projects) {
+    var timeSpent = 0;
+    var hackatimeProjectNames = JSON.parse(project.hackatimeProjects);
+
+    for (const hackatimeProject of hackatimeProjects) {
+        if (hackatimeProjectNames.includes(hackatimeProject.name)) {
+            totalTimeSpent += hackatimeProject.total_seconds || 0;
+            timeSpent += hackatimeProject.total_seconds || 0;
+        }
+    }
+
+    projectTimeSpent[project.id] = formatSeconds(timeSpent);
+}
 ---
 
 <BaseLayout title="Home" hideFooter={false}>
     <div class="header">
-        <a class="button" href="/logout">logout</a>
-        <Image
-            src={user?.avatar || "/assets/images/bonk.png"}
-            width={32}
-            height={32}
-            class="avatar"
-            alt="pfp"
-        />
+        <div class="left">
+            <h1>Total time spent: {formatSeconds(totalTimeSpent)}</h1>
+        </div>
+        <div class="right">
+            <a class="button" href="/logout">logout</a>
+            <Image
+                src={user?.avatar || "/assets/images/bonk.png"}
+                width={32}
+                height={32}
+                class="avatar"
+                alt="pfp"
+            />
+        </div>
     </div>
 
     <div class="page">
@@ -53,19 +88,21 @@ const projects = await GetProjectsForUser(user.slackId);
                                 class="
                     projectcard"
                             >
-                                <Image
-                                    class="projectcard-image"
-                                    src={project.image || ""}
-                                    width={128}
-                                    height={128}
-                                    alt="project image"
-                                />
+                                <div class="projectcard-image-container">
+                                    <div class="projectcard-time-spent">
+                                        {projectTimeSpent[project.id] || "0s"}
+                                    </div>
+                                    <Image
+                                        class="projectcard-image"
+                                        src={project.image || ""}
+                                        width={128}
+                                        height={128}
+                                        alt="project image"
+                                    />
+                                </div>
                                 <div class="projectcard-content">
-                                    <h2>{project.name}</h2>
-                                    <p>
-                                        {project.description.substring(0, 100)}
-                                        ...
-                                    </p>
+                                    <h2 class="limited">{project.name}</h2>
+                                    <p class="limited">{project.description}</p>
                                 </div>
                             </div>
                         </a>
