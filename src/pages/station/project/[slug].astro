@@ -4,11 +4,37 @@ import { GetProjectFromId } from "../../../utils/projects";
 import BaseLayout from "../../../layouts/base.astro";
 import "../../../styles/project.css";
 import { Image } from "astro:assets";
+import {
+    GetHackatimeProjects,
+    type HackatimeProject,
+} from "../../../utils/hackatime";
+import { formatSeconds } from "../../../utils/time";
+
+import openRaw from "../../../assets/icons/open.svg?raw";
+import codeRaw from "../../../assets/icons/code.svg?raw";
 
 const { slug } = Astro.params;
 
 const user = await GetUserFromCookies(Astro.cookies);
 const project = await GetProjectFromId(slug || "");
+
+const hackData = await GetHackatimeProjects(project?.authorSlackId || "");
+var hackatimeProjects: HackatimeProject[];
+if (hackData.ok) {
+    hackatimeProjects = hackData.projects || [];
+} else {
+    hackatimeProjects = [];
+}
+
+var totalTimeSpent = 0;
+for (const hackatimeProject of hackatimeProjects) {
+    const projectHackatimeNames = JSON.parse(
+        project?.hackatimeProjects || "[]",
+    );
+    if (projectHackatimeNames.includes(hackatimeProject.name)) {
+        totalTimeSpent += hackatimeProject.total_seconds || 0;
+    }
+}
 
 if (!project) {
     Astro.cookies.set("flash_error", "Project not found", {
@@ -27,38 +53,51 @@ const isCurrentUserAuthor = project.authorSlackId === user?.slackId;
 ---
 
 <BaseLayout title={project.projectName} hideFooter={true}>
-    <div class="content">
+    <div class="content-margin">
         <div class="project-header">
             <h1 class="project-title">{project.projectName}</h1>
             {
                 isCurrentUserAuthor && (
-                    <a
-                        href={`/station/project/${project.id}/edit`}
-                        class="button warnbg"
-                    >
-                        Edit Project
-                    </a>
-                    <a
-                        href={`/station/project/${project.id}/delete`}
-                        class="button dangerbg"
-                    >
-                        Delete Project
-                    </a>
+                    <Fragment>
+                        <a
+                            href={`/station/project/${project.id}/edit`}
+                            class="button warnbg"
+                        >
+                            Edit Project
+                        </a>
+                        <a
+                            href={`/station/project/${project.id}/delete`}
+                            class="button dangerbg"
+                        >
+                            Delete Project
+                        </a>
+                    </Fragment>
                 )
             }
         </div>
-        <Image
-            src={project.projectScreenshot || ""}
-            alt={project.projectName}
-            class="project-image"
-            width={512}
-            height={350}
-        />
+        <div class="row project-header-container">
+            <Image
+                src={project.projectScreenshot || ""}
+                alt={project.projectName}
+                class="project-image"
+                width={512}
+                height={350}
+            />
+            <div class="cards">
+                <a class="button open" href={project.projectPlayableUrl}>
+                    <span class="icon" set:html={openRaw} />
+                </a>
+                <a class="button open" href={project.projectCodeUrl}>
+                    <span class="icon" set:html={codeRaw} />
+                </a>
+                <div class="time-card surface">
+                    <p class="time-card-title">
+                        Δ {formatSeconds(totalTimeSpent)}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <p class="pre">description:</p>
         <p>{project.projectDescription}</p>
-        {
-            isCurrentUserAuthor && (
-                <a href={`/station/project/${project.id}/edit`}>Edit Project</a>
-            )
-        }
     </div>
 </BaseLayout>

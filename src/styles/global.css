@@ -54,6 +54,10 @@ body {
     flex-shrink: 0;
 }
 
+button {
+    font: inherit;
+}
+
 .button {
     width: fit-content;
     padding: 0.5rem 0.7rem;
@@ -76,7 +80,7 @@ body {
     transition: background-color 0.2s ease-in-out;
 }
 
-a.button:hover {
+.button:hover {
     box-shadow: 0 4px 12px rgba(139, 219, 134, 0.25);
 }
 

@@ -4,12 +4,15 @@ import { db } from "../../db";
 import { projects } from "../../db/schema";
 import { CompressImage, UploadImageToCDN } from "../../utils/cdn";
 import { GetHackatimeProjects } from "../../utils/hackatime";
+import { GetProjectFromId } from "../../utils/projects";
+import { eq } from "drizzle-orm";
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const user = await GetUserFromCookies(cookies);
   if (!user) return redirect("/login");
 
   const formData = await request.formData();
+  const id = (formData.get("id") as string) || "";
   const name = formData.get("name") as string;
   const description = formData.get("description") as string;
   const githubUrl = formData.get("githubUrl") as string;
@@ -18,26 +21,40 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     formData.get("liveUrl") ??
     "") as string;
 
+  const isEdit = id !== "";
+
+  let existing = null;
+  if (isEdit) {
+    existing = await GetProjectFromId(id);
+    if (!existing || existing.authorSlackId !== user.slackId) {
+      return redirect("/station/home");
+    }
+  }
+
+  const backTo = isEdit
+    ? `/station/project/${id}/edit`
+    : "/station/projects/create";
+
   // check that hackatime projects are legit
   var hackatimeProjectNames = JSON.parse(hackatimeProjects) as string[];
   if (!Array.isArray(hackatimeProjectNames)) {
-    return redirect("/station/projects/create");
+    return redirect(backTo);
   }
 
   var hackatimeData = await GetHackatimeProjects(user.slackId);
   if (!hackatimeData.ok || !hackatimeData.projects) {
-    return redirect("/station/projects/create");
+    return redirect(backTo);
   }
 
   for (const projectName of hackatimeProjectNames) {
     // check if project name is in hackatimeData.projects
     if (!hackatimeData.projects.some((p) => p.name === projectName)) {
-      return redirect("/station/projects/create");
+      return redirect(backTo);
     }
   }
 
   const image = formData.get("image") as File | null;
-  var imageUrl: string | null = null;
+  var imageUrl: string | null = existing?.projectScreenshot || null;
 
   if (image && image.size > 0) {
     try {
@@ -50,12 +67,10 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   }
 
   if (!name || !description || !githubUrl || !hackatimeProjects) {
-    return redirect("/station/projects/create");
+    return redirect(backTo);
   }
 
-  await db.insert(projects).values({
-    authorSlackId: user.slackId,
-
+  const values = {
     projectName: name,
     projectDescription: description,
     projectCodeUrl: githubUrl,
@@ -64,6 +79,19 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     projectScreenshot:
       imageUrl ||
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Den_Haag_Hollands_Spoor.jpg/3840px-Den_Haag_Hollands_Spoor.jpg",
+  };
+
+  if (isEdit) {
+    if (!existing) return redirect("/station/home");
+
+    db.update(projects).set(values).where(eq(projects.id, existing.id)).run();
+
+    return redirect(`/station/project/${existing.id}`);
+  }
+
+  await db.insert(projects).values({
+    ...values,
+    authorSlackId: user.slackId,
     overrideHoursSpent: 0,
     overrideHoursSpentReason: "",
   });

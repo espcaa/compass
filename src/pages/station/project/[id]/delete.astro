@@ -1,0 +1,42 @@
+---
+import { GetProjectFromId } from "../../../../utils/projects";
+import { GetUserFromCookies } from "../../../../utils/auth";
+import BaseLayout from "../../../../layouts/base.astro";
+import "../../../../styles/project.css";
+
+const { id } = Astro.params;
+
+const user = await GetUserFromCookies(Astro.cookies);
+if (!user) return Astro.redirect("/login");
+
+const project = await GetProjectFromId(id || "");
+if (!project) return Astro.redirect("/station/home");
+if (project.authorSlackId !== user.slackId)
+    return Astro.redirect("/station/home");
+---
+
+<BaseLayout title={`Delete ${project.projectName}`} hideFooter={true}>
+    <div class="content-margin">
+        <div class="project-header">
+            <h1 class="project-title">Delete Project</h1>
+        </div>
+        <div class="project-body">
+            <p>
+                Are you sure you want to delete this project? This action cannot
+                be undone.
+            </p>
+            <form method="POST" action="/api/delete-project">
+                <input type="hidden" name="projectId" value={project.id} />
+                <p>Delete "{project.projectName}"?</p>
+                <a class="button warnbg" href={`/station/project/${project.id}`}
+                    >cancel</a
+                >
+                <button
+                    style="margin-left: 0.5rem;"
+                    type="submit"
+                    class="button dangerbg">delete</button
+                >
+            </form>
+        </div>
+    </div>
+</BaseLayout>

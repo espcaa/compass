@@ -2,6 +2,11 @@
 import BaseLayout from "../layouts/base.astro";
 import { GetAllProjects, GetAllUsers } from "../utils/admin.ts";
 import "../styles/admin.css";
+import {
+    GetHackatimeProjects,
+    type HackatimeProject,
+} from "../utils/hackatime";
+import { formatSeconds } from "../utils/time";
 
 // get error from cookies
 const error = Astro.cookies.get("flash_error")?.value;
@@ -11,6 +16,39 @@ if (error) {
 
 const users = GetAllUsers();
 const projects = GetAllProjects();
+
+// dict of project: hackatime seconds
+var projectTimeSpent: { [key: string]: number } = {};
+
+for (const user of users) {
+    const hackData = await GetHackatimeProjects(user.slackId);
+    var hackatimeProjects: HackatimeProject[];
+    if (hackData.ok) {
+        hackatimeProjects = hackData.projects || [];
+    } else {
+        hackatimeProjects = [];
+    }
+
+    for (const project of projects.filter(
+        (p) => p.authorSlackId === user.slackId,
+    )) {
+        var timeSpent = 0;
+        var hackatimeProjectNames = JSON.parse(project.hackatimeProjects);
+
+        for (const hackatimeProject of hackatimeProjects) {
+            if (hackatimeProjectNames.includes(hackatimeProject.name)) {
+                timeSpent += hackatimeProject.total_seconds || 0;
+            }
+        }
+
+        projectTimeSpent[project.id] = timeSpent;
+    }
+}
+
+const totalTimeSpent = Object.values(projectTimeSpent).reduce(
+    (a, b) => a + b,
+    0,
+);
 ---
 
 <BaseLayout title="Admin" hideFooter={true}>
@@ -29,6 +67,7 @@ const projects = GetAllProjects();
         <ul>
             <li>Total Users: {users.length}</li>
             <li>Total Projects: {projects.length}</li>
+            <li>Total Time logged: {formatSeconds(totalTimeSpent)}</li>
         </ul>
         <h2>Users ({users.length})</h2>
         <table>
@@ -99,6 +138,7 @@ const projects = GetAllProjects();
                     <th>Image</th>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Hackatime time logged</th>
                     <th>Author</th>
                     <th>Created</th>
                     <th>Actions</th>
@@ -122,6 +162,11 @@ const projects = GetAllProjects();
                             </td>
                             <td>{project.projectName}</td>
                             <td>{project.projectDescription}</td>
+                            <td>
+                                {formatSeconds(
+                                    projectTimeSpent[project.id] || 0,
+                                )}
+                            </td>
                             <td>
                                 {users.find(
                                     (u) => u.slackId === project.authorSlackId,
